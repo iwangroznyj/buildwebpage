@@ -15,25 +15,17 @@ def main(args):
 		if isPrefixed(i, "c_"):
 			contentfiles.append(i)
 	if len(contentfiles) == 0:
-		print args[0] + ": Error: no content files given"
-		usage()
-		return 0
+		error("no content files given")
 	# read site template
-	template = linesOfFile(args[1])
+	template = readFile(args[1])
 	# search for CONTENT line
+	if not 'CONTENT' in template:
+		error("template file lacks the word CONTENT in capital letters")
 	cl = 0
-	for i in range(len(template)):
-		if "CONTENT" in template[i]:
-			cl = i
-			break
-	if cl == None:
-		print args[0] + ": Error: template file has no CONTENT line"
-		usage()
-		return 0
 	# replace CONTENT line by content file lines
 	for name in contentfiles:
-		content = linesOfFile(name)
-		output = template[:cl] + content + template[cl+1:]
+		content = readFile(name)
+		output = content.replace('CONTENT', content)
 		saveFile(os.path.basename(name)[2:], output)
 	return 0
 
@@ -47,16 +39,14 @@ def isPrefixed(name, prefix):
 	return False
 
 
-def linesOfFile(name):
-	"""reads a file linewise"""
+def readFile(name):
+	""" reads a file and return its content as a string """
 	if not os.path.exists(name):
-		print "Error: file", name, "not found."
-		sys.exit(0)
+		error(name + " not found")
 	if not os.path.isfile(name):
-		print "Error:", name, "is not a file."
-		sys.exit(0)
+		error(name + " is not a file")
 	with open(name) as file:
-		out = file.readlines()
+		out = file.read()
 	return out
 
 
@@ -64,14 +54,13 @@ def saveFile(name, content):
 	"""saves lines to a file"""
 	if os.path.exists(name):
 		if not os.path.isfile(name):
-			print "Error:", name, "is not a file."
-			sys.exit(0)
+			error(name + " is not a file")
 		answer = raw_input("Warning: file '" + name + "' already exists, do you want to overwrite it? [y/N]:")
 		if answer[0] != "y" and answer[0] != "Y":
 			sys.exit(0)
 	with open(name, "w") as file:
 		file.truncate()
-		file.writelines(content)
+		file.write(content)
 
 def usage():
 	"""prints help message"""
@@ -84,6 +73,11 @@ def usage():
 	print " *the template file must contain a line only consisting of whitespace and the"
 	print "  word CONTENT in capital letters.  This is where the content will be inserted."
 	print " *the content files must be prefixed with \"c_\""
+
+
+def error(message="unexpected error"):
+	print sys.argv[0] + ": Error: " + message
+	sys.exit(0)
 
 
 if __name__ == "__main__":
