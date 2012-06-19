@@ -21,14 +21,12 @@ def main(args):
 	# search for CONTENT line
 	if not 'CONTENT' in template:
 		error("template file lacks the word CONTENT in capital letters")
-	cl = 0
 	# replace CONTENT line by content file lines
 	for name in contentfiles:
 		content = readFile(name)
-		output = content.replace('CONTENT', content)
+		output = template.replace('CONTENT', content)
 		saveFile(os.path.basename(name)[2:], output)
 	return 0
-
 
 
 def isPrefixed(name, prefix):
