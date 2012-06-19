@@ -15,12 +15,12 @@ def main(args):
 		if isPrefixed(i, "c_"):
 			contentfiles.append(i)
 	if len(contentfiles) == 0:
-		error("no content files given")
+		error("no content files given", True)
 	# read site template
 	template = readFile(args[1])
 	# search for CONTENT line
 	if not 'CONTENT' in template:
-		error("template file lacks the word CONTENT in capital letters")
+		error("template file lacks the word CONTENT in capital letters", True)
 	# replace CONTENT line by content file lines
 	for name in contentfiles:
 		content = readFile(name)
@@ -73,8 +73,10 @@ def usage():
 	print " *the content files must be prefixed with \"c_\""
 
 
-def error(message="unexpected error"):
+def error(message="unexpected error", showusage=False):
 	print sys.argv[0] + ": Error: " + message
+	if showusage:
+		usage()
 	sys.exit(0)
 
 
