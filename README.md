@@ -1,13 +1,16 @@
-# buildwebpage.py
+# buildwebpage
 
 ## DESCRIPTION
 
-This script generates a static website with several subsites.  This is done by
-inserting the content of the subsites into a template file.
+The `buildwebpage` script builds a static webpage by inserting a number of
+subpages into a template.
 
-In the template file there is a line containing the word CONTENT in capital
-letters.  The `buildwebpage` script replaces this whole line with the content
-of the
+The template file must contain the word `CONTENT` in capital letters.  This
+word will be substituted with the content of the subpage files.  The resulting
+web page is then saved in the current working directory.
+
+To avoid filename conflicts all subpage files must be prefixed with `c_`.
+Files without that prefix will _not_ be recognised as subpage by the script.
 
 ## REQUIREMENTS
 
@@ -15,8 +18,5 @@ This script requires at least Python 2.5.
 
 ## USAGE
 
-    buildwebpage.py template content ...
-
-content files:  The file name of the content files must be prefixed with `c_`
-                to be recognised by the script.
+    buildwebpage.py template subpages ...
 
