@@ -64,15 +64,16 @@ def saveFile(name, content):
 def usage():
 	""" prints help message """
 	print "usage:"
-	print " ", sys.argv[0], "template_file content_file [additional content files]"
-	print "description:"
-	print "  This script generates a static website by inserting the content of a series"
-	print "  of html files into a template."
-	print "conventions:"
-	print " *the template file must contain a line only consisting of whitespace and the"
-	print "  word CONTENT in capital letters.  This is where the content will be inserted."
-	print " *the content files must be prefixed with \"c_\""
-
+	print "  " + sys.argv[0] + " template subpages ..."
+	print ""
+	print "  Generate a static website by inserting the content of a series of subpages"
+	print "  into a template."
+	print ""
+	print "  The template file must contain the word CONTENT in capital letters which will"
+	print "  be replaced by the content of the subpages."
+	print ""
+	print "  The file names of the subpages must be prefixed with 'c_' to be recognised by"
+	print "  the script."
 
 def error(message="unexpected error", showusage=False):
 	""" prints error message and terminates """
