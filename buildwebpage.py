@@ -1,27 +1,28 @@
 #!/usr/bin/env python2
 # encoding=utf8
 
-import os, sys
+import os
+import sys
 
 
 def main(args):
-	# check argument number
+	# Argument handling
 	if len(args) < 3:
 		usage()
 		return 0
-	# get list of possible content files
+	# Check for content files
 	contentfiles = []
 	for i in args[2:]:
 		if isPrefixed(i, "c_"):
 			contentfiles.append(i)
 	if len(contentfiles) == 0:
 		error("no content files given", True)
-	# read site template
+	# Read template
 	template = readFile(args[1])
-	# search for CONTENT line
+	# Check for CONTENT
 	if not 'CONTENT' in template:
 		error("template file lacks the word CONTENT in capital letters", True)
-	# replace CONTENT line by content file lines
+	# Replace CONTENT by contents
 	for name in contentfiles:
 		content = readFile(name)
 		output = template.replace('CONTENT', content)
@@ -30,9 +31,9 @@ def main(args):
 
 
 def isPrefixed(name, prefix):
-	"""checks if a file name starts with a given prefix"""
+	""" checks if a file name starts with a given prefix """
 	fname = os.path.basename(name)
-	if fname[:len(prefix)] == prefix:
+	if fname.startswith(prefix):
 		return True
 	return False
 
@@ -49,7 +50,7 @@ def readFile(name):
 
 
 def saveFile(name, content):
-	"""saves lines to a file"""
+	""" saves lines to a file """
 	if os.path.exists(name):
 		if not os.path.isfile(name):
 			error(name + " is not a file")
@@ -61,7 +62,7 @@ def saveFile(name, content):
 		file.write(content)
 
 def usage():
-	"""prints help message"""
+	""" prints help message """
 	print "usage:"
 	print " ", sys.argv[0], "template_file content_file [additional content files]"
 	print "description:"
@@ -74,6 +75,7 @@ def usage():
 
 
 def error(message="unexpected error", showusage=False):
+	""" prints error message and terminates """
 	print sys.argv[0] + ": Error: " + message
 	if showusage:
 		usage()
@@ -82,4 +84,5 @@ def error(message="unexpected error", showusage=False):
 
 if __name__ == "__main__":
 	sys.exit(main(sys.argv))
+
 
