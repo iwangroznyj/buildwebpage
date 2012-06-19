@@ -10,20 +10,20 @@ def main(args):
 	if len(args) < 3:
 		usage()
 		return 0
-	# Check for content files
-	contentfiles = []
+	# Check for subpage files
+	subpages = []
 	for i in args[2:]:
 		if isPrefixed(i, "c_"):
-			contentfiles.append(i)
-	if len(contentfiles) == 0:
-		error("no content files given", True)
+			subpages.append(i)
+	if not subpages:
+		error("no subpage files given", True)
 	# Read template
 	template = readFile(args[1])
 	# Check for CONTENT
 	if not 'CONTENT' in template:
 		error("template file lacks the word CONTENT in capital letters", True)
-	# Replace CONTENT by contents
-	for name in contentfiles:
+	# Replace CONTENT by subpages
+	for name in subpages:
 		content = readFile(name)
 		output = template.replace('CONTENT', content)
 		saveFile(os.path.basename(name)[2:], output)
