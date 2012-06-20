@@ -4,7 +4,9 @@
 import os
 import sys
 
-PREFIX="_"
+FILEPREFIX="_"
+CONTENTSTRING="<!--CONTENT-->"
+OUTPUTDIR="../"
 
 
 def main(args):
@@ -15,20 +17,22 @@ def main(args):
 	# Check for subpage files
 	subpages = []
 	for i in args[2:]:
-		if isPrefixed(i, PREFIX):
+		if isPrefixed(i, FILEPREFIX):
 			subpages.append(i)
 	if not subpages:
 		error("no subpage files given", True)
 	# Read template
 	template = readFile(args[1])
-	# Check for CONTENT
-	if not 'CONTENT' in template:
+	# Check for content string
+	if not CONTENTSTRING in template:
 		error("template file lacks the word CONTENT in capital letters", True)
-	# Replace CONTENT by subpages
+		# TODO edit error message
+	# Replace content string by subpages
 	for name in subpages:
 		content = readFile(name)
-		output = template.replace('CONTENT', content)
-		saveFile('../' + os.path.basename(name)[1:], output)
+		output = template.replace(CONTENTSTRING, content)
+		outfile = OUTPUTDIR + os.path.basename(name)[len(FILEPREFIX):]
+		saveFile(outfile, output)
 	return 0
 
 
@@ -65,6 +69,7 @@ def saveFile(name, content):
 
 def usage():
 	""" prints help message """
+	# TODO adapt usage string
 	print "usage:"
 	print "  " + sys.argv[0] + " template subpages ..."
 	print ""
