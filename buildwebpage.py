@@ -4,6 +4,8 @@
 import os
 import sys
 
+PREFIX="_"
+
 
 def main(args):
 	# Argument handling
@@ -13,7 +15,7 @@ def main(args):
 	# Check for subpage files
 	subpages = []
 	for i in args[2:]:
-		if isPrefixed(i, "c_"):
+		if isPrefixed(i, PREFIX):
 			subpages.append(i)
 	if not subpages:
 		error("no subpage files given", True)
@@ -26,7 +28,7 @@ def main(args):
 	for name in subpages:
 		content = readFile(name)
 		output = template.replace('CONTENT', content)
-		saveFile(os.path.basename(name)[2:], output)
+		saveFile('../' + os.path.basename(name)[1:], output)
 	return 0
 
 
@@ -72,7 +74,7 @@ def usage():
 	print "  The template file must contain the word CONTENT in capital letters which will"
 	print "  be replaced by the content of the subpages."
 	print ""
-	print "  The file names of the subpages must be prefixed with 'c_' to be recognised by"
+	print "  The file names of the subpages must be prefixed with '" + PREFIX +"' to be recognised by"
 	print "  the script."
 
 def error(message="unexpected error", showusage=False):
