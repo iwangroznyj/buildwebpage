@@ -1,7 +1,6 @@
 buildwebpage TODO
 
- * remove sys.exit's
- * expeptions instead if C style error handling
+ * check exceptions through
 
 Argument handling
 
@@ -14,4 +13,5 @@ Wild wishes
  
  * automatic title generation
  * automatic menu generation
+ * autoamtic template detection
 

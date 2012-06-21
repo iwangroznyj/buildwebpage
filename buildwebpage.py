@@ -16,12 +16,12 @@ def main(args):
 	# Check for subpage files
 	subpages = [ i for i in args[2:] if os.path.basename(i).startswith(FILEPREFIX) ]
 	if not subpages:
-		error("no subpage files given", True)
+		raise RuntimeError("no subpage files given")
 	# Read template
 	template = readFile(args[1])
 	# Check for content string
 	if not CONTENTSTRING in template:
-		error("template file lacks the word CONTENT in capital letters", True)
+		raise RuntimeError("template file lacks the word CONTENT in capital letters")
 		# TODO edit error message
 	# Replace content string by subpages
 	for name in subpages:
@@ -34,10 +34,6 @@ def main(args):
 
 def readFile(name):
 	""" reads a file and return its content as a string """
-	if not os.path.exists(name):
-		error(name + " not found")
-	if not os.path.isfile(name):
-		error(name + " is not a file")
 	with open(name) as file:
 		out = file.read()
 	return out
@@ -46,11 +42,9 @@ def readFile(name):
 def saveFile(name, content):
 	""" saves lines to a file """
 	if os.path.exists(name):
-		if not os.path.isfile(name):
-			error(name + " is not a file")
 		answer = raw_input("Warning: file '" + name + "' already exists, do you want to overwrite it? [y/N]:")
 		if answer[0].lower() != "y":
-			sys.exit(0)
+			return
 	with open(name, "w") as file:
 		file.write(content)
 
