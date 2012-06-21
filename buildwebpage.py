@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# encoding=utf8
 
 import os
 import sys
@@ -15,10 +14,7 @@ def main(args):
 		usage()
 		return 0
 	# Check for subpage files
-	subpages = []
-	for i in args[2:]:
-		if isPrefixed(i, FILEPREFIX):
-			subpages.append(i)
+	subpages = [ i for i in args[2:] if os.path.basename(i).startswith(FILEPREFIX) ]
 	if not subpages:
 		error("no subpage files given", True)
 	# Read template
@@ -34,14 +30,6 @@ def main(args):
 		outfile = OUTPUTDIR + os.path.basename(name)[len(FILEPREFIX):]
 		saveFile(outfile, output)
 	return 0
-
-
-def isPrefixed(name, prefix):
-	""" checks if a file name starts with a given prefix """
-	fname = os.path.basename(name)
-	if fname.startswith(prefix):
-		return True
-	return False
 
 
 def readFile(name):
@@ -61,10 +49,9 @@ def saveFile(name, content):
 		if not os.path.isfile(name):
 			error(name + " is not a file")
 		answer = raw_input("Warning: file '" + name + "' already exists, do you want to overwrite it? [y/N]:")
-		if answer[0] != "y" and answer[0] != "Y":
+		if answer[0].lower() != "y":
 			sys.exit(0)
 	with open(name, "w") as file:
-		file.truncate()
 		file.write(content)
 
 def usage():
@@ -81,6 +68,7 @@ def usage():
 	print ""
 	print "  The file names of the subpages must be prefixed with '" + PREFIX +"' to be recognised by"
 	print "  the script."
+
 
 def error(message="unexpected error", showusage=False):
 	""" prints error message and terminates """

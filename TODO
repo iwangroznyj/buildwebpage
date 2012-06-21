@@ -1,2 +1,17 @@
 buildwebpage TODO
 
+ * remove sys.exit's
+ * expeptions instead if C style error handling
+
+Argument handling
+
+ * if only one arg
+ 	* use glob to take all _* files as subpages
+ * if more than one arg
+ 	* use args as pages (doesnt matter if _* or not)
+
+Wild wishes
+ 
+ * automatic title generation
+ * automatic menu generation
+
