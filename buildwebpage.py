@@ -18,10 +18,7 @@ def main(args):
 		subpages = glob.glob(FILEPREFIX + '*')
 	else:
 		subpages = args[2:]
-	print subpages
-	return 0
 	# Check for subpage files
-	#subpages = [ i for i in args[2:] if os.path.basename(i).startswith(FILEPREFIX) ]
 	if not subpages:
 		raise RuntimeError("No subpage files given")
 	# Read template
