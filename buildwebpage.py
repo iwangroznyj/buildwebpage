@@ -2,41 +2,43 @@
 
 import os
 import sys
+import glob
 
 FILEPREFIX="_"
 CONTENTSTRING="<!--CONTENT-->"
-OUTPUTDIR="../"
+OUTPUTDIR="./"
 
 
 def main(args):
 	# Argument handling
-	if len(args) < 3:
-		usage()
+	if len(args) < 2:
+		raise RuntimeError("Not enough arguments")
 		return 0
+	elif len(args) == 2:
+		subpages = glob.glob(FILEPREFIX + '*')
+	else:
+		subpages = args[2:]
+	print subpages
+	return 0
 	# Check for subpage files
-	subpages = [ i for i in args[2:] if os.path.basename(i).startswith(FILEPREFIX) ]
+	#subpages = [ i for i in args[2:] if os.path.basename(i).startswith(FILEPREFIX) ]
 	if not subpages:
-		raise RuntimeError("no subpage files given")
+		raise RuntimeError("No subpage files given")
 	# Read template
-	template = readFile(args[1])
+	with open(args[1]) as file:
+		template = file.read()
 	# Check for content string
 	if not CONTENTSTRING in template:
-		raise RuntimeError("template file lacks the word CONTENT in capital letters")
 		# TODO edit error message
+		raise RuntimeError("Template file lacks the word CONTENT in capital letters")
 	# Replace content string by subpages
 	for name in subpages:
-		content = readFile(name)
+		with open(name) as file:
+			content = file.read()
 		output = template.replace(CONTENTSTRING, content)
 		outfile = OUTPUTDIR + os.path.basename(name)[len(FILEPREFIX):]
 		saveFile(outfile, output)
 	return 0
-
-
-def readFile(name):
-	""" reads a file and return its content as a string """
-	with open(name) as file:
-		out = file.read()
-	return out
 
 
 def saveFile(name, content):
@@ -47,29 +49,6 @@ def saveFile(name, content):
 			return
 	with open(name, "w") as file:
 		file.write(content)
-
-def usage():
-	""" prints help message """
-	# TODO adapt usage string
-	print "usage:"
-	print "  " + sys.argv[0] + " template subpages ..."
-	print ""
-	print "  Generate a static website by inserting the content of a series of subpages"
-	print "  into a template."
-	print ""
-	print "  The template file must contain the word CONTENT in capital letters which will"
-	print "  be replaced by the content of the subpages."
-	print ""
-	print "  The file names of the subpages must be prefixed with '" + PREFIX +"' to be recognised by"
-	print "  the script."
-
-
-def error(message="unexpected error", showusage=False):
-	""" prints error message and terminates """
-	print sys.argv[0] + ": Error: " + message
-	if showusage:
-		usage()
-	sys.exit(0)
 
 
 if __name__ == "__main__":
