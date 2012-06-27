@@ -10,7 +10,6 @@ OUTPUTDIR="./"
 
 
 def main(args):
-	# Argument handling
 	if len(args) < 2:
 		raise RuntimeError("Not enough arguments")
 		return 0
@@ -18,23 +17,18 @@ def main(args):
 		subpages = glob.glob(FILEPREFIX + '*')
 	else:
 		subpages = args[2:]
-	# Check for subpage files
 	if not subpages:
 		raise RuntimeError("No subpage files given")
-	# Read template
 	with open(args[1]) as file:
 		template = file.read()
-	# Check for content string
 	if not CONTENTSTRING in template:
-		# TODO edit error message
-		raise RuntimeError("Template file lacks the word CONTENT in capital letters")
-	# Replace content string by subpages
+		raise RuntimeError("Template file lacks the substitution string '" + CONTENTSTRING + "'")
 	for name in subpages:
 		with open(name) as file:
 			content = file.read()
 		output = template.replace(CONTENTSTRING, content)
 		outfile = OUTPUTDIR + os.path.basename(name)[len(FILEPREFIX):]
-		saveFile(outfile, output)
+		saveFile(outfile, outputPeople)
 	return 0
 
 
