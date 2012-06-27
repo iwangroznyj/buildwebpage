@@ -28,7 +28,7 @@ def main(args):
 			content = file.read()
 		output = template.replace(CONTENTSTRING, content)
 		outfile = OUTPUTDIR + os.path.basename(name)[len(FILEPREFIX):]
-		saveFile(outfile, outputPeople)
+		saveFile(outfile, output)
 	return 0
 
 
