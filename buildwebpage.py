@@ -5,21 +5,19 @@ import sys
 import glob
 
 FILEPREFIX="_"
+TEMPLATE="template.html"
 CONTENTSTRING="<!--CONTENT-->"
-OUTPUTDIR="./"
+OUTPUTDIR="../"
 
 
 def main(args):
 	if len(args) < 2:
-		raise RuntimeError("Not enough arguments")
-		return 0
-	elif len(args) == 2:
 		subpages = glob.glob(FILEPREFIX + '*')
 	else:
 		subpages = args[2:]
 	if not subpages:
 		raise RuntimeError("No subpage files given")
-	with open(args[1]) as file:
+	with open(glob.glob(TEMPLATE)) as file:
 		template = file.read()
 	if not CONTENTSTRING in template:
 		raise RuntimeError("Template file lacks the substitution string '" + CONTENTSTRING + "'")
