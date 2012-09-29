@@ -1,10 +1,5 @@
 buildwebpage TODO
 
- * check exceptions through
-
-Wild wishes
- 
- * automatic title generation
- * automatic menu generation
- * autoamtic template detection
+ * rethink template class
+ * rewrite readme
 
