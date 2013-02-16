@@ -1,4 +1,4 @@
-import buildwebpagelib.cfg as cfg
+from . import cfg
 
 
 REGEX_TITLE = re.compile(cfg.COMMENT_R.format(cfg.SUBP_TITLE),
@@ -8,6 +8,7 @@ REGEX_MENU = re.compile(cfg.COMMENT_R.format(cfg.SUBP_MENU),
 
 
 class SubPageError(Exception):
+    pass
 
 
 class SubPage(object):

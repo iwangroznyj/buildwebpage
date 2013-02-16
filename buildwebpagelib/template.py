@@ -1,5 +1,5 @@
 import re
-import buildwebpagelib.cfg as cfg
+from . import cfg
 
 
 REGEX_CONTENT = re.compile(cfg.COMMENT_R.format(cfg.TMPL_CONTENT),
@@ -11,6 +11,7 @@ ERR_NOSTR = 'template lacks substitution string \'{string}\'.'
 
 
 class TemplateError(Exception):
+    pass
 
 
 class Template(object):
