@@ -7,10 +7,8 @@ REGEX_CONTENT = re.compile(cfg.COMMENT_R.format(cfg.TMPL_CONTENT),
 REGEX_TITLE = re.compile(cfg.COMMENT_R.format(cfg.TMPL_TITLE),
                          re.UNICODE | re.IGNORECASE)
 
-ERR_NOSTR = 'template lacks substitution string \'{string}\'.'
 
-
-class TemplateError(Exception):
+class TemplateNoContentError(Exception):
     pass
 
 
@@ -19,7 +17,7 @@ class Template(object):
         self.content = content
         self.has_title = False
         if not REGEX_CONTENT.search(content):
-            raise TemplateError()  # TODO add sane error message
+            raise TemplateNoContentError()
         if REGEX_TITLE.search(content):
             self.has_title = True
 
