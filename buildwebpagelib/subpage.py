@@ -25,11 +25,6 @@ class Subpage(object):
             self.has_menu = True
 
     def get_html(self):
-        raise NotImplementedError
-
-
-class HtmlSubpage(Subpage):
-    def get_html(self):
         return self.content
 
 
