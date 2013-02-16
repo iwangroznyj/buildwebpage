@@ -12,5 +12,5 @@ TMPL_CONTENT = 'content'
 TMPL_TITLE = 'title'
 
 # subpage strings
-SUBP_TITLE = '<!--\s*title\s*:\s*(.*?)\s*-->'
-SUBP_MENU = '<!--\s*menu\s*:\s*(.*?)\s*-->'
+SUBP_TITLE = 'title\s*:\s*(.+?)'
+SUBP_MENU = 'menu\s*:\s*(.+?)'

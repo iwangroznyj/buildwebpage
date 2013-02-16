@@ -1,5 +1,5 @@
 import re
-import buildwebpage.cfg as cfg
+import buildwebpagelib.cfg as cfg
 
 
 REGEX_CONTENT = re.compile(cfg.COMMENT_R.format(cfg.TMPL_CONTENT),
@@ -18,7 +18,7 @@ class Template(object):
         self.content = content
         self.has_title = False
         if not REGEX_CONTENT.search(content):
-            raise TemplateError()
+            raise TemplateError()  # TODO add sane error message
         if REGEX_TITLE.search(content):
             self.has_title = True
 
