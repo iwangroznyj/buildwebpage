@@ -1,5 +1,11 @@
-buildwebpage TODO
+TODO
+====
 
- * rethink template class
+Functionality:
+ * add markdown support
+ * add command-line argument parsing
+ * ?use xml parser to check html validility?
+
+Documentation:
  * rewrite readme
-
+ * document code
