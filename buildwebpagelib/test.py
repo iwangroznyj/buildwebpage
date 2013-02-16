@@ -41,13 +41,13 @@ class TestSubpage(unittest.TestCase):
         self.assertEqual(test_sub.title, 'This is a test page!')
         self.assertFalse(test_sub.has_menu)
 
-        # create html subpage with menu id
+        # create html subpage with menu
         test_sub = subpage.HtmlSubpage(self.sub_menuok)
         self.assertFalse(test_sub.has_title)
         self.assertTrue(test_sub.has_menu)
         self.assertEqual(test_sub.menu, 'test_menuitem')
 
-        # create html subpage with title
+        # create html subpage with title and menu
         test_sub = subpage.HtmlSubpage(self.sub_menutitle)
         self.assertTrue(test_sub.has_title)
         self.assertEqual(test_sub.title, 'This is a test page!')
@@ -65,9 +65,11 @@ class TestTemplate(unittest.TestCase):
         # template without substitution string is faulty
         with self.assertRaises(template.TemplateNoContentError):
             template.Template(self.templ_nocont)
+
         # template with substitution string should be alright
         test_template = template.Template(self.templ)
         self.assertFalse(test_template.has_title)
+
         # title should be recognised within a template
         test_template = template.Template(self.templ_title)
         self.assertTrue(test_template.has_title)
