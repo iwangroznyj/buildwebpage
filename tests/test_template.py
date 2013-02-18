@@ -20,6 +20,9 @@ class TestTemplate(unittest.TestCase):
                                                   const.SUBPAGE)
         self.sub_menubad = buildwp.subpage.Subpage(const.SUB_MENUBAD + '\n' +
                                                    const.SUBPAGE)
+        self.sub_md = buildwp.subpage.MarkdownSubpage(const.SUB_TITLE + '\n' +
+                                                      const.SUB_MARKDOWN,
+                                                      html_format='html4')
 
     def test_construct_template(self):
         # template without substitution string is faulty
@@ -48,6 +51,9 @@ class TestTemplate(unittest.TestCase):
         # ignore menu item mismatch
         webpage = test_t.build_page(self.sub_menubad)
         self.assertEqual(webpage, const.CMP_MENUBAD)
+        # test markdown conversion
+        webpage = test_t.build_page(self.sub_md)
+        self.assertEqual(webpage, const.CMP_MARKDOWN)
 
 
 if __name__ == '__main__':

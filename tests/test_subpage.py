@@ -36,6 +36,13 @@ class TestSubpage(unittest.TestCase):
         self.assertTrue(test_sub.has_menu)
         self.assertEqual(test_sub.menu, 'test_menuitem')
 
+    def test_markdown_subpage(self):
+        mdsub = buildwp.subpage.MarkdownSubpage(const.SUB_TITLE + '\n' +
+                                                const.SUB_MARKDOWN)
+        self.assertTrue(mdsub.has_title)
+        self.assertEqual(mdsub.title, 'This is a test page!')
+        self.assertFalse(mdsub.has_menu)
+
 
 if __name__ == '__main__':
     unittest.main()
