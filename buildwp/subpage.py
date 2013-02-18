@@ -1,4 +1,5 @@
 import re
+import markdown
 from . import cfg
 
 
@@ -28,5 +29,12 @@ class Subpage(object):
 
 
 class MarkdownSubpage(Subpage):
+    def __init__(self, content, filename=None, html_format=None):
+        super(MarkdownSubpage, self).__init__(content, filename)
+        if html_format:
+            self.html_format = html_format
+        else:
+            self.html_format = 'xhtml'
+
     def get_html(self):
-        raise NotImplementedError  # TODO use markdown parser for converting
+        return markdown.markdown(self.content, output_format=self.html_format)
