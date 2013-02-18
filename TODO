@@ -2,11 +2,10 @@ TODO
 ====
 
 Functionality:
- * add markdown support
- * add command-line argument parsing
+ * add config file support?
  * ?use xml parser to check html validility?
  * write setup script
 
 Documentation:
- * rewrite readme
  * document code
+ * rewrite readme
