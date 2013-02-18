@@ -1,7 +1,7 @@
 # Default input and output files
-DEFAULT_FILE_WILDCARD = '_*'
+DEFAULT_SUBPAGES = '_*'
 DEFAULT_TEMPLATE = 'template.html'
-BUILD_DEST = './build/'
+DEFAULT_DEST = './build/'
 
 # Keywords
 SUBST_CONTENT = 'content'

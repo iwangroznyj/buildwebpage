@@ -1,12 +1,13 @@
 #! /usr/bin/env python
 
 
-import sys
+import buildwp.cli
 
 
-def main(sys.argv):
-    pass
+def main():
+    args = buildwp.cli.parse_commandline()
+    print args
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()
