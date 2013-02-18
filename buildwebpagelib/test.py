@@ -34,7 +34,7 @@ ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 '''
 CMP_MENU = u'''<html>
 <head><title>\xf6\u044b - <!-- title --></title></head>
-<body><p id='test_menuitem' class='menu_current'>Menu</p>
+<body><p id='test_menuitem' class='menu_current' >Menu</p>
 <!-- menu: test_menuitem -->
 ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 </body></html>

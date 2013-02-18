@@ -2,10 +2,9 @@ import re
 from . import cfg
 
 
-REGEX_TITLE = re.compile(cfg.COMMENT_R.format(cfg.SUBP_TITLE),
-                         re.UNICODE | re.IGNORECASE)
-REGEX_MENU = re.compile(cfg.COMMENT_R.format(cfg.SUBP_MENU),
-                        re.UNICODE | re.IGNORECASE)
+# Precompile regexes
+RE_TITLE = re.compile(cfg.RE_SUBPG_TITLE, re.UNICODE | re.IGNORECASE)
+RE_MENU = re.compile(cfg.RE_SUBPG_MENU, re.UNICODE | re.IGNORECASE)
 
 
 class Subpage(object):
@@ -15,11 +14,11 @@ class Subpage(object):
         self.title = ''
         self.has_menu = False
         self.menu = ''
-        match = REGEX_TITLE.search(content)
+        match = RE_TITLE.search(content)
         if match:
             self.title = match.group(1)
             self.has_title = True
-        match = REGEX_MENU.search(content)
+        match = RE_MENU.search(content)
         if match:
             self.menu = match.group(1)
             self.has_menu = True
