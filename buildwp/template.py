@@ -1,4 +1,3 @@
-import sys  # TODO remove
 import re
 from . import cfg
 from . import warning
@@ -39,7 +38,6 @@ class Template(object):
             warning.warnf(WARN_TEMPL_TITLE)
         if subpage.has_menu:
             re_menu = re.compile(cfg.RE_TEMPL_MENUID.format(subpage.menu))
-            sys.stderr.write(cfg.RE_TEMPL_MENUID.format(subpage.menu))
             if re_menu.search(webpage):
                 webpage = re_menu.sub(MENU_SUBSTITUTION, webpage)
             else:
