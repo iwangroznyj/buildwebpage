@@ -1,17 +1,24 @@
 # Default input and output files
 DEFAULT_SUBPAGES = '_*'
 DEFAULT_TEMPLATE = 'template.html'
-DEFAULT_DEST = './build/'
+DEFAULT_DEST = 'build/'
+DEFAULT_CONF = 'buildwebpage.cfg'
 
-# Keywords
+# Substitution settings
 SUBST_CONTENT = 'content'
 SUBST_TITLE = 'title'
 SUBST_MENU = 'menu'
 SUBST_ATTRIBUTE = 'id'
 SUBST_CURRENTMENU = 'menu_current'
 
+# Encoding of all input files
+INPUTENC = 'utf8'
+
 # Html templates
 HTML_COMMENT = '<!-- {0} -->'
+
+# Name of the main section in the config file
+CONFIG_SECTION = 'buildwebpage'
 
 # Partial regexes
 _RE_COMMENT = r'<!--\s*{0}\s*-->'
