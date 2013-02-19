@@ -1,15 +1,17 @@
 #! /usr/bin/env python
 
 
+import sys
+
 import buildwp.cli
 import buildwp.webpage
 
 
-def main():
-    settings = buildwp.cli.acquire_settings()
+def main(args):
+    settings = buildwp.cli.Settings(args)
     webpage = buildwp.webpage.Webpage(settings)
     webpage.build_webpage()
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv)
