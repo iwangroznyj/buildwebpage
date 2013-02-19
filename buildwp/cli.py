@@ -35,6 +35,7 @@ class Settings(dict):
         self.update(cli_args)
 
     def parse_commandline(self, args):
+        # TODO add help text
         parser = argparse.ArgumentParser(argument_default=argparse.SUPPRESS)
         parser.add_argument('template', nargs='?', help=HLP_TEMPL)
         parser.add_argument('subpages', nargs='*', metavar='subpage',
