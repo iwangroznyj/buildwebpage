@@ -2,11 +2,13 @@
 
 
 import buildwp.cli
+import buildwp.webpage
 
 
 def main():
-    args = buildwp.cli.parse_commandline()
-    print args
+    settings = buildwp.cli.acquire_settings()
+    webpage = buildwp.webpage.Webpage(settings)
+    webpage.build_webpage()
 
 
 if __name__ == '__main__':

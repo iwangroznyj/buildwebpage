@@ -11,6 +11,9 @@ RE_MENU = re.compile(cfg.RE_SUBPG_MENU, re.UNICODE | re.IGNORECASE)
 class Subpage(object):
     def __init__(self, content, filename=None):
         self.content = content
+        self.filename = ''
+        if filename:
+            self.filename = filename
         self.has_title = False
         self.title = ''
         self.has_menu = False
@@ -34,6 +37,7 @@ class MarkdownSubpage(Subpage):
         if html_format:
             self.html_format = html_format
         else:
+            # TODO rethink default (maybe relocate to cfg)
             self.html_format = 'xhtml'
 
     def get_html(self):

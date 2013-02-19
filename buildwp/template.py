@@ -12,6 +12,7 @@ MENU_SUBSTITUTION = r"\1 class='{0}' \2".format(cfg.SUBST_CURRENTMENU)
 WARN_SUBPG_TITLE = 'Subpage does not set title for template\'s title slot'
 WARN_TEMPL_TITLE = 'Template lacks title slot for title set by subpage'
 WARN_TEMPL_MENU = 'Template lacks menu item referenced by subpage'
+ERR_TEMPL_CONTENT = 'Template lacks content string'
 
 
 class TemplateContentError(Exception):

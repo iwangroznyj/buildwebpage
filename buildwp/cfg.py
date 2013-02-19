@@ -3,11 +3,14 @@ DEFAULT_SUBPAGES = '_*'
 DEFAULT_TEMPLATE = 'template.html'
 DEFAULT_DEST = 'build/'
 DEFAULT_CONF = 'buildwebpage.cfg'
+DEFAULT_STD = 'xhtml1'
+# TODO make standard customisable
 
 # Substitution settings
 SUBST_CONTENT = 'content'
 SUBST_TITLE = 'title'
 SUBST_MENU = 'menu'
+SUBST_MARKDOWN = 'markdown'
 SUBST_ATTRIBUTE = 'id'
 SUBST_CURRENTMENU = 'menu_current'
 
@@ -32,3 +35,4 @@ RE_TEMPL_CONTENT = _RE_COMMENT.format(SUBST_CONTENT)
 RE_TEMPL_MENUID = _RE_ATTRIBUTE.format(SUBST_ATTRIBUTE , '{0}')
 RE_SUBPG_TITLE = _RE_COMMENT.format(_RE_SUBST_PROPERTY.format(SUBST_TITLE))
 RE_SUBPG_MENU = _RE_COMMENT.format(_RE_SUBST_PROPERTY.format(SUBST_MENU))
+RE_MARKDOWN = _RE_COMMENT.format(SUBST_MARKDOWN)

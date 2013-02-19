@@ -20,7 +20,7 @@ HLP_DEST = 'destination folder of the finished webpage \
 
 def acquire_settings():
     settings = {'template': cfg.DEFAULT_TEMPLATE,
-                'subpages': cfg.DEFAULT_SUBPAGES,
+                'subpages': glob.glob(cfg.DEFAULT_SUBPAGES),
                 'dest': cfg.DEFAULT_DEST,
                 'conf': cfg.DEFAULT_CONF}
     settings.update(parse_commandline())
@@ -40,7 +40,10 @@ def parse_commandline():
 
 
 def parse_configfile(filename):
+    # TODO parse data
     config = ConfigParser.SafeConfigParser()
     config.read(filename)
+    if not config.has_section(cfg.CONFIG_SECTION):
+        return dict()
     return dict((key, var) for key, var in config.items(cfg.CONFIG_SECTION)
                 if key in PROPERTIES)
