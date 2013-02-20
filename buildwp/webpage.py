@@ -21,8 +21,10 @@ class Webpage(object):
             raise WebpageNoSubpageError('no subpages found')
         self.templatefile = settings['template']
         self.subpagefiles = settings['subpages']
-        self.fileprefix = os.path.commonprefix([os.path.basename(s)
-                                                for s in settings['subpages']])
+        self.fileprefix = ''
+        if len(settings['subpages']) > 1:
+            filebases = [os.path.basename(s) for s in settings['subpages']]
+            self.fileprefix = os.path.commonprefix(filebases)
         self.dest = settings['dest']
         self.template = self._open_template()
         self.subpages = self._open_subpages()
@@ -54,7 +56,6 @@ class Webpage(object):
                 continue
             if RE_MARKDOWN.search(content):
                 sub = subpage.MarkdownSubpage(content, filename)
-                # TODO specify standard
             else:
                 sub = subpage.Subpage(content, filename)
             subpages.append(sub)
