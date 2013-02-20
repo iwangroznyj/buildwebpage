@@ -1,10 +1,16 @@
+'''Tests for the buildwp.subpage module'''
+
+
 import unittest
 import buildwp.subpage
 from . import const
 
 
 class TestSubpage(unittest.TestCase):
+    '''Test the subpage class'''
+
     def setUp(self):
+        '''Set up the test environment.'''
         self.sub = const.SUBPAGE
         self.sub_title = const.SUB_TITLE + const.SUBPAGE
         self.sub_menuok = const.SUB_MENUOK + const.SUBPAGE
@@ -12,6 +18,7 @@ class TestSubpage(unittest.TestCase):
         self.sub_menutitle = const.SUB_TITLE + const.SUBPAGE + const.SUB_MENUOK
 
     def test_html_subpage(self):
+        '''Test if menu/title strings are recognised in html subpages'''
         # create html subpage without title/menu
         test_sub = buildwp.subpage.Subpage(self.sub)
         self.assertFalse(test_sub.has_title)
@@ -37,6 +44,7 @@ class TestSubpage(unittest.TestCase):
         self.assertEqual(test_sub.menu, 'test_menuitem')
 
     def test_markdown_subpage(self):
+        '''Test if menu/title strings are recognised in a markdown subpage'''
         mdsub = buildwp.subpage.MarkdownSubpage(const.SUB_TITLE + '\n' +
                                                 const.SUB_MARKDOWN)
         self.assertTrue(mdsub.has_title)

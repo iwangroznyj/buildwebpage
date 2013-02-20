@@ -1,3 +1,6 @@
+'''Classes representing the template for the webpage.'''
+
+
 import re
 from . import cfg
 from . import warning
@@ -16,11 +19,21 @@ ERR_TEMPL_CONTENT = 'Template lacks content string'
 
 
 class TemplateContentError(Exception):
-    pass
+    '''Error raised by the Template class if it lacks the content string.'''
 
 
 class Template(object):
+    '''Representation of a webpage template.'''
+
     def __init__(self, content):
+        '''Create template.
+
+        :param content: content of the template
+        :type  content: unicode
+        :raises TemplateContentError: if the template lacks the string which
+                                      should be replaced by the subpage.
+
+        '''
         self.content = content
         self.has_title = False
         if not RE_CONTENT.search(content):
@@ -30,6 +43,14 @@ class Template(object):
             self.has_title = True
 
     def build_page(self, subpage):
+        '''Place the subpage into the template.
+
+        :param subpage: subpage to be inserted as content
+        :type  subpage: subpage.Subpage
+        :return:        built webpage
+        :rtype:         unicode
+
+        '''
         webpage = self.content
         if self.has_title:
             if subpage.has_title:

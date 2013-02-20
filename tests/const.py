@@ -1,3 +1,6 @@
+'''Constant strings for all tests to share.'''
+
+
 # template strings
 TEMPLATE = u'''<html>
 <head><title>\xf6\u044b - {0}</title></head>

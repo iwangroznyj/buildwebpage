@@ -1,3 +1,6 @@
+'''Classes for representing subpages of a webpage.'''
+
+
 import re
 import markdown
 from . import cfg
@@ -9,7 +12,17 @@ RE_MENU = re.compile(cfg.RE_SUBPG_MENU, re.UNICODE | re.IGNORECASE)
 
 
 class Subpage(object):
+    '''Representation of a html subpage.'''
+
     def __init__(self, content, filename=None):
+        '''Create a subpage.
+
+        :param content:  content of the subpage
+        :type  content:  unicode
+        :param filename: name of the subpage file (for later reference)
+        :type  filename: str
+
+        '''
         self.content = content
         self.filename = ''
         if filename:
@@ -28,13 +41,24 @@ class Subpage(object):
             self.has_menu = True
 
     def get_html(self):
+        '''Return content of the subpage (assuming it's html).
+
+        :return: html code
+        :rtype:  unicode
+
+        '''
         return self.content
 
 
 class MarkdownSubpage(Subpage):
-    def __init__(self, content, filename=None):
-        super(MarkdownSubpage, self).__init__(content, filename)
+    '''Representation of a markdown subpage.'''
 
     def get_html(self):
+        '''Convert markdown into html.
+
+        :return: html code
+        :rtype:  unicode
+
+        '''
         return markdown.markdown(self.content,
                                  output_format=cfg.DEFAULT_HTMLFORMAT)

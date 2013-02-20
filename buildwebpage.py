@@ -1,6 +1,10 @@
 #! /usr/bin/env python
 
 
+'''Create webpages from a template.'''
+# TODO better doc
+
+
 import sys
 
 import buildwp.cli
@@ -8,6 +12,12 @@ import buildwp.webpage
 
 
 def main(args):
+    '''Build the webpage.
+    
+    :param args: command-line arguments
+    :type  args: list of str
+    
+    '''
     settings = buildwp.cli.Settings(args[1:])
     webpage = buildwp.webpage.Webpage(settings)
     webpage.build_webpage()

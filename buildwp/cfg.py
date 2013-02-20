@@ -1,3 +1,10 @@
+'''Programme-wide settings for buildwebpage.
+
+This module contains settings for the buildwebpage script which are not
+meant to be edited by the programme user.
+
+'''
+
 # Default input and output files
 DEFAULT_SUBPAGES = '_*'
 DEFAULT_TEMPLATE = 'template.html'

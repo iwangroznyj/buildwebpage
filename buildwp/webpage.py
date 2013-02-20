@@ -1,3 +1,6 @@
+'''Classes for representing whole webpages.'''
+
+
 import os.path
 import re
 
@@ -11,14 +14,28 @@ from . import warning
 RE_MARKDOWN = re.compile(cfg.RE_MARKDOWN, re.UNICODE | re.IGNORECASE)
 
 
-class WebpageNoSubpageError(Exception):
-    pass
+class WebpageSubpageError(Exception):
+    '''Error raised by the Webpage class if there are no subpages given.'''
 
 
 class Webpage(object):
+    '''Representation of a whole webpage with several subpages.'''
+
     def __init__(self, settings):
+        '''Prepare webpage for build process.
+
+        :param settings: settings of buildwebpage
+        :type  settings: dict
+        :raises WebpageSubpageError: if there are no subpage files given.
+
+        The Webpage expects following `settings`:
+         * template: name of the template file
+         * subpages: list of the names of the subpage files
+         * dest: destination folder where the finished webpage will be located
+
+        '''
         if not settings['subpages']:
-            raise WebpageNoSubpageError('no subpages found')
+            raise WebpageSubpageError('No subpages found')
         self.templatefile = settings['template']
         self.subpagefiles = settings['subpages']
         self.fileprefix = ''
@@ -30,6 +47,12 @@ class Webpage(object):
         self.subpages = self._open_subpages()
 
     def build_webpage(self):
+        '''Build the webpage from the template using the subpages.
+
+        The finnished webpage will be placed into the folder specified by
+        `self.dest`.
+
+        '''
         templatefile = os.path.basename(self.templatefile)
         if not os.path.isdir(self.dest):
             os.makedirs(self.dest)
@@ -46,6 +69,13 @@ class Webpage(object):
                 warning.warnf(str(error))
 
     def _open_subpages(self):
+        '''Open the subpage files and create Subpage objects from them.
+
+        :return: loaded subpages
+        :rtype:  list of subpage.Subpage
+
+        '''
+        # TODO integrate into the Subpage class?class?
         subpages = list()
         for filename in self.subpagefiles:
             try:
@@ -62,6 +92,12 @@ class Webpage(object):
         return subpages
 
     def _open_template(self):
+        '''Open the template file and create Template object
+
+        :return: loaded template
+        :rtype:  template.Template
+
+        '''
         with open(self.templatefile) as fileptr:
             content = unicode(fileptr.read(), cfg.INPUTENC)
         return template.Template(content)

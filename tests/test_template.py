@@ -1,3 +1,6 @@
+'''Tests for the buildwp.template module.'''
+
+
 import unittest
 import buildwp.subpage
 import buildwp.template
@@ -5,7 +8,15 @@ from . import const
 
 
 class TestTemplate(unittest.TestCase):
+    '''Tests for the Template class.'''
+
     def setUp(self):
+        '''Set testing environment.
+
+        All subpages are already initialised as buildwp.subpage.Subpage
+        objects.
+
+        '''
         # set templates
         self.templ_nocont = const.TEMPLATE.format('', '')
         self.templ = const.TEMPLATE.format('', const.TMPL_CONTENT)
@@ -24,6 +35,7 @@ class TestTemplate(unittest.TestCase):
                                                       const.SUB_MARKDOWN)
 
     def test_construct_template(self):
+        '''Test the error handling and title recognision of the template.'''
         # template without substitution string is faulty
         with self.assertRaises(buildwp.template.TemplateContentError):
             buildwp.template.Template(self.templ_nocont)
@@ -37,6 +49,7 @@ class TestTemplate(unittest.TestCase):
         self.assertTrue(test_template.has_title)
 
     def test_build_pages(self):
+        '''Test if the subpages are inserted properly into the template'''
         test_t = buildwp.template.Template(self.templ_title)
         # no title or menu
         webpage = test_t.build_page(self.sub)
