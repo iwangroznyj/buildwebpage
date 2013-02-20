@@ -31,12 +31,12 @@ class Settings(dict):
     def __init__(self, args):
         super(Settings, self).__init__(DEFAULTS)
         cli_args = self.parse_commandline(args)
-        if cli_args.has_key('conf'):
+        if 'conf' in cli_args:
             self['conf'] = cli_args['conf']
         cfg_args = self.parse_configfile(self['conf'])
         self.update(cfg_args)
         self.update(cli_args)
-        if cli_args.has_key('gencfg'):
+        if 'gencfg' in cli_args:
             self.write_configfile(self['conf'])
 
     def parse_commandline(self, args):

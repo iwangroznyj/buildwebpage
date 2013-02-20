@@ -33,15 +33,15 @@ class Webpage(object):
         templatefile = os.path.basename(self.templatefile)
         if not os.path.isdir(self.dest):
             os.makedirs(self.dest)
-        for subpage in self.subpages:
-            oldfile = os.path.basename(subpage.filename)
+        for page in self.subpages:
+            oldfile = os.path.basename(page.filename)
             newfile = oldfile[len(self.fileprefix):]
             newfile = os.path.join(self.dest, newfile)
             print '{0} + {1} => {2}'.format(templatefile, oldfile, newfile)
-            webpage = self.template.build_page(subpage)
+            finalpage = self.template.build_page(page)
             try:
                 with open(newfile, 'w') as fileptr:
-                    fileptr.write(webpage.encode(cfg.INPUTENC))
+                    fileptr.write(finalpage.encode(cfg.INPUTENC))
             except IOError as error:
                 warning.warnf(str(error))
 
