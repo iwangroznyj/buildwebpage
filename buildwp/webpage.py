@@ -75,7 +75,6 @@ class Webpage(object):
         :rtype:  list of subpage.Subpage
 
         '''
-        # TODO integrate into the Subpage class?class?
         subpages = list()
         for filename in self.subpagefiles:
             try:
