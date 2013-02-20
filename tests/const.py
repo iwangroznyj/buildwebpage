@@ -54,7 +54,7 @@ CMP_MARKDOWN = u'''<html>
 
 <h1>Test</h1>
 <p><code>ASCII</code>
-\xdcnic\xf6de<br>
+\xdcnic\xf6de<br />
 <em>\u044e\u043d\u0438\u043a\u043e\u0434</em></p>
 </body></html>
 '''

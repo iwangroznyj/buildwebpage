@@ -21,8 +21,7 @@ class TestTemplate(unittest.TestCase):
         self.sub_menubad = buildwp.subpage.Subpage(const.SUB_MENUBAD + '\n' +
                                                    const.SUBPAGE)
         self.sub_md = buildwp.subpage.MarkdownSubpage(const.SUB_TITLE + '\n' +
-                                                      const.SUB_MARKDOWN,
-                                                      html_format='html4')
+                                                      const.SUB_MARKDOWN)
 
     def test_construct_template(self):
         # template without substitution string is faulty
