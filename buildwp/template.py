@@ -37,8 +37,7 @@ class Template(object):
         self.content = content
         self.has_title = False
         if not RE_CONTENT.search(content):
-            # TODO add message and stuff
-            raise TemplateContentError()
+            raise TemplateContentError('Template lacks substitution string')
         if RE_TITLE.search(content):
             self.has_title = True
 
