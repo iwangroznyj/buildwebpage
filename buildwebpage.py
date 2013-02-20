@@ -8,7 +8,7 @@ import buildwp.webpage
 
 
 def main(args):
-    settings = buildwp.cli.Settings(args)
+    settings = buildwp.cli.Settings(args[1:])
     webpage = buildwp.webpage.Webpage(settings)
     webpage.build_webpage()
 
