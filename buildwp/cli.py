@@ -4,7 +4,7 @@ import glob
 from . import cfg
 
 
-# default values
+# Default values
 DEFAULTS = {'template': cfg.DEFAULT_TEMPLATE,
             'subpages': glob.glob(cfg.DEFAULT_SUBPAGES),
             'dest': cfg.DEFAULT_DEST,
@@ -21,6 +21,10 @@ HLP_DEST = 'destination folder of the finished webpage \
 (defaults to \'{0}\')'.format(cfg.DEFAULT_DEST)
 HLP_GENCFG = 'save current configuration to the file specified by the \
 -c/--config argument'
+
+# Config file builder
+CFG_SECTION = '[{section}]\n{options}'
+CFG_OPTION = '{option} = {value}'
 
 
 class Settings(dict):
@@ -44,23 +48,30 @@ class Settings(dict):
         parser.add_argument('-c', '--conf', metavar='FILE', help=HLP_CONF)
         parser.add_argument('-d', '--dest', dest='dest', metavar='DIR',
                             help=HLP_DEST)
-        parser.add_argument('--gen-config', metavar='gencfg',
-                            action='store_true', help=HLP_GENCFG)
+        parser.add_argument('--gen-config', dest='gencfg', action='store_true',
+                            help=HLP_GENCFG)
         return parser.parse_args(args).__dict__
 
     def parse_configfile(self, filename):
-        # TODO prepare data
-        config = ConfigParser.SafeConfigParser()
+        config = ConfigParser.SafeConfigParser(allow_no_value=True)
         config.read(filename)
-        if not config.has_section(cfg.CONFIG_SECTION):
-            return dict()
-        return dict((key, var) for key, var in config.items(cfg.CONFIG_SECTION)
-                    if key in DEFAULTS.keys())
+        content = dict()
+        if config.has_section(cfg.SECTION_CONFIG):
+            content.update((key, var)
+                           for key, var in config.items(cfg.SECTION_CONFIG)
+                           if key in DEFAULTS.keys())
+        if config.has_section(cfg.SECTION_SUBPG):
+            content['subpages'] = config.options(cfg.SECTION_SUBPG)
+        return content
 
     def write_configfile(self, filename):
-        config = ConfigParser.SaveConfigParser()
-        config.add_section(cfg.CONFIG_SECTION)
-        for key in DEFAULTS.keys():
-            config.set(cfg.CONFIG_SECTION, key, str(self[key]))
+        options = [CFG_OPTION.format(option=option, value=value)
+                   for option, value in self.items()
+                   if option in ['template', 'dest']]
+        settings = CFG_SECTION.format(section=cfg.SECTION_CONFIG,
+                                      options='\n'.join(options))
+        subpages = CFG_SECTION.format(section=cfg.SECTION_SUBPG,
+                                      options='\n'.join(self['subpages']))
+        config = settings + '\n\n' + subpages
         with open(filename, 'w') as cfgfile:
-            config.write(cfgfile)
+            cfgfile.write(config)

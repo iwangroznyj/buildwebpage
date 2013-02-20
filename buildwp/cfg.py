@@ -20,7 +20,8 @@ INPUTENC = 'utf8'
 HTML_COMMENT = '<!-- {0} -->'
 
 # Name of the main section in the config file
-CONFIG_SECTION = 'buildwebpage'
+SECTION_CONFIG = 'settings'
+SECTION_SUBPG = 'subpages'
 
 # Partial regexes
 _RE_COMMENT = r'<!--\s*{0}\s*-->'
