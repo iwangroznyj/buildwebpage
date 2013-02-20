@@ -2,7 +2,6 @@ TODO
 ====
 
 Functionality:
- * add config file support?
  * ?use xml parser to check html validility?
  * write setup script
 
