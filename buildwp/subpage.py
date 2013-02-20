@@ -32,13 +32,9 @@ class Subpage(object):
 
 
 class MarkdownSubpage(Subpage):
-    def __init__(self, content, filename=None, html_format=None):
+    def __init__(self, content, filename=None):
         super(MarkdownSubpage, self).__init__(content, filename)
-        if html_format:
-            self.html_format = html_format
-        else:
-            # TODO rethink default (maybe relocate to cfg)
-            self.html_format = 'xhtml'
 
     def get_html(self):
-        return markdown.markdown(self.content, output_format=self.html_format)
+        return markdown.markdown(self.content,
+                                 output_format=cfg.DEFAULT_HTMLFORMAT)

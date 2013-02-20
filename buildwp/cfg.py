@@ -3,8 +3,7 @@ DEFAULT_SUBPAGES = '_*'
 DEFAULT_TEMPLATE = 'template.html'
 DEFAULT_DEST = 'build/'
 DEFAULT_CONF = 'buildwebpage.cfg'
-DEFAULT_STD = 'xhtml1'
-# TODO make standard customisable
+DEFAULT_HTMLFORMAT = 'xhtml1'
 
 # Substitution settings
 SUBST_CONTENT = 'content'
