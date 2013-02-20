@@ -19,6 +19,8 @@ HLP_CONF = 'configuration file \
 (defaults to \'{0}\')'.format(cfg.DEFAULT_CONF)
 HLP_DEST = 'destination folder of the finished webpage \
 (defaults to \'{0}\')'.format(cfg.DEFAULT_DEST)
+HLP_GENCFG = 'save current configuration to the file specified by the \
+-c/--config argument'
 
 
 class Settings(dict):
@@ -30,6 +32,8 @@ class Settings(dict):
         cfg_args = self.parse_configfile(self['conf'])
         self.update(cfg_args)
         self.update(cli_args)
+        if cli_args.has_key('gencfg'):
+            self.write_configfile(self['conf'])
 
     def parse_commandline(self, args):
         # TODO add help text
@@ -40,6 +44,8 @@ class Settings(dict):
         parser.add_argument('-c', '--conf', metavar='FILE', help=HLP_CONF)
         parser.add_argument('-d', '--dest', dest='dest', metavar='DIR',
                             help=HLP_DEST)
+        parser.add_argument('--gen-config', metavar='gencfg',
+                            action='store_true', help=HLP_GENCFG)
         return parser.parse_args(args).__dict__
 
     def parse_configfile(self, filename):
@@ -50,3 +56,11 @@ class Settings(dict):
             return dict()
         return dict((key, var) for key, var in config.items(cfg.CONFIG_SECTION)
                     if key in DEFAULTS.keys())
+
+    def write_configfile(self, filename):
+        config = ConfigParser.SaveConfigParser()
+        config.add_section(cfg.CONFIG_SECTION)
+        for key in DEFAULTS.keys():
+            config.set(cfg.CONFIG_SECTION, key, str(self[key]))
+        with open(filename, 'w') as cfgfile:
+            config.write(cfgfile)
