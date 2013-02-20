@@ -4,9 +4,6 @@ import glob
 from . import cfg
 
 
-# List of properties
-PROPERTIES = ['template', 'subpages', 'dest', 'conf']
-
 # default values
 DEFAULTS = {'template': cfg.DEFAULT_TEMPLATE,
             'subpages': glob.glob(cfg.DEFAULT_SUBPAGES),
@@ -45,11 +42,11 @@ class Settings(dict):
                             help=HLP_DEST)
         return parser.parse_args(args).__dict__
 
-    def parse_configfile(filename):
+    def parse_configfile(self, filename):
         # TODO prepare data
         config = ConfigParser.SafeConfigParser()
         config.read(filename)
         if not config.has_section(cfg.CONFIG_SECTION):
             return dict()
         return dict((key, var) for key, var in config.items(cfg.CONFIG_SECTION)
-                    if key in PROPERTIES)
+                    if key in DEFAULTS.keys())
