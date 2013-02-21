@@ -4,6 +4,9 @@
 '''Create static webpages from a template.'''
 
 
+DEBUG = False
+
+
 import sys
 
 import buildwp.cli
@@ -17,9 +20,16 @@ def main(args):
     :type  args: list of str
     
     '''
-    settings = buildwp.cli.Settings(args[1:])
-    webpage = buildwp.webpage.Webpage(settings)
-    webpage.build_webpage()
+    try:
+        settings = buildwp.cli.Settings(args[1:])
+        webpage = buildwp.webpage.Webpage(settings)
+        webpage.build_webpage()
+    except Exception as error:
+        if DEBUG:
+            import traceback
+            traceback.print_exc()
+        else:
+            sys.stderr.write('Error: ' + str(error) + '\n')
 
 
 if __name__ == '__main__':
