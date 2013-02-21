@@ -1,11 +1,7 @@
 #! /usr/bin/env python
 
 
-'''Create webpages from a template.'''
-# TODO better doc
-
-
-VERSION = '1.0-rc1'
+'''Create static webpages from a template.'''
 
 
 import sys
