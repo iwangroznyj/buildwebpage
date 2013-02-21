@@ -25,13 +25,6 @@ DEFAULTS = {'template': cfg.DEFAULT_TEMPLATE,
             'conf': cfg.DEFAULT_CONF}
 
 # Command line help strings
-SUBSTSTRING = cfg.HTML_COMMENT.format(cfg.SUBST_CONTENT)
-# TODO rewrite description (talk about prefixes, menuids, title etc)
-DESC = '''Creates a webpage by inserting subpages into a template file.  The
-template file has to contain the string '{subststring}' which is then replaced
-by the content of the subpages.  The resulting webpage files will be created in
-the folder specified as 'destination folder'.
-'''.format(subststring=SUBSTSTRING)
 HLP_TEMPL = 'template for the webpage \
 (defaults to \'{0}\')'.format(cfg.DEFAULT_TEMPLATE)
 HLP_SUBPG = 'subpage of the webpage \
@@ -42,7 +35,6 @@ HLP_DEST = 'destination folder of the finished webpage \
 (defaults to \'{0}\')'.format(cfg.DEFAULT_DEST)
 HLP_GENCFG = 'save current configuration to the file specified by the \
 -c/--config argument'
-
 # Config file builder
 CFG_SECTION = '[{section}]\n{options}'
 CFG_OPTION = '{option} = {value}'
@@ -82,7 +74,8 @@ class Settings(dict):
         :rtype:      dict
 
         '''
-        parser = argparse.ArgumentParser(description=DESC,
+        parser = argparse.ArgumentParser(description=cfg.DESCRIPTION,
+                                         formatter_class=argparse.RawDescriptionHelpFormatter,
                                          argument_default=argparse.SUPPRESS)
         parser.add_argument('template', nargs='?', help=HLP_TEMPL)
         parser.add_argument('subpages', nargs='*', metavar='subpage',

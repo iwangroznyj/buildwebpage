@@ -5,6 +5,34 @@ meant to be edited by the programme user.
 
 '''
 
+
+# Programme description
+DESCRIPTION = '''Creates a webpage by inserting subpages into a template file.
+
+The template file has to contain the comment `<!-- content -->` which is
+then replaced by the content of the subpages.  By default all files
+starting with an underscore `_` will be used as subpages.  This can be
+overridden by naming subpages manually using either the command-line or
+the configuration file.
+
+Apart from HTML this script supports input files using Markdown.  A file
+can be set to be Markdown by inserting the comment `<!-- markdown -->`.
+It will then automatically converted to HTML when included into the
+template.
+
+Each subpage can be assigned a title by including the HTML comment
+`<!-- title: SOME TITLE TEXT -->`.  The title text given here will be
+inserted in place of any occurence of `<!-- title -->` in the template.
+
+Additionally one can mark a specific tag in the template to be the menu
+item associated with a subpage by refering to its id using the
+`<!-- menu: TAG ID -->` comment.  Any tag that contains the attribute
+`id='TAG ID'` will be added a `class='menu_current'` which can then be
+formatted using css.
+
+The resulting webpage files will be created in the directory which is
+set to be the destination folder.'''
+
 # Default input and output files
 DEFAULT_SUBPAGES = '_*'
 DEFAULT_TEMPLATE = 'template.html'
