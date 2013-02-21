@@ -26,7 +26,7 @@ in place of any occurence of `<!-- title -->` in the template.
 Additionally one can mark a specific tag in the template to be the menu item
 associated with a subpage by refering to its id using the
 `<!-- menu: TAG ID -->` comment.  Any tag that contains the attribute
-`id='TAG ID'` will be added a `class='menu_current'` which can then be
+`id='TAG ID'` will be added a `class='menu-current'` which can then be
 formatted using css.
 
 The resulting webpage files will be created in the directory which is set to be
@@ -45,7 +45,7 @@ SUBST_TITLE = 'title'
 SUBST_MENU = 'menu'
 SUBST_MARKDOWN = 'markdown'
 SUBST_ATTRIBUTE = 'id'
-SUBST_CURRENTMENU = 'menu_current'
+SUBST_CURRENTMENU = 'menu-current'
 
 # Encoding of all input files
 INPUTENC = 'utf8'
