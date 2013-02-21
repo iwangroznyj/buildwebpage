@@ -1,10 +1,4 @@
 TODO
 ====
 
-Functionality:
- * ?use xml parser to check html validility?
- * write setup script
-
-Documentation:
- * document code
- * rewrite readme
+ * add HTML validator???
