@@ -32,16 +32,14 @@ class Webpage(object):
         '''
         if not settings['subpages']:
             raise WebpageSubpageError('No subpages found')
-        self.templatefile = settings['template']
-        self.subpagefiles = settings['subpages']
         self.fileprefix = ''
         if len(settings['subpages']) > 1:
             filebases = [os.path.basename(s) for s in settings['subpages']]
             self.fileprefix = os.path.commonprefix(filebases)
         self.dest = settings['dest']
-        self.template = self._open_template()
+        self.template = template.read_templatefile(settings['template'])
         self.subpages = [subpage.read_subpagefile(filename)
-                         for filename in self.subpagefiles]
+                         for filename in settings['subpages']
         self.subpages = [sub for sub in self.subpages if sub]
 
     def build_webpage(self):
@@ -51,7 +49,7 @@ class Webpage(object):
         `self.dest`.
 
         '''
-        templatefile = os.path.basename(self.templatefile)
+        templatefile = os.path.basename(self.template.filename)
         if not os.path.isdir(self.dest):
             os.makedirs(self.dest)
         for page in self.subpages:
@@ -65,14 +63,3 @@ class Webpage(object):
                     fileptr.write(finalpage.encode(cfg.INPUTENC))
             except IOError as error:
                 warning.warnf(str(error))
-
-    def _open_template(self):
-        '''Open the template file and create Template object
-
-        :return: loaded template
-        :rtype:  template.Template
-
-        '''
-        with open(self.templatefile) as fileptr:
-            content = unicode(fileptr.read(), cfg.INPUTENC)
-        return template.Template(content)
