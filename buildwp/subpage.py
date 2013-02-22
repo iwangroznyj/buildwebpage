@@ -4,6 +4,7 @@
 import re
 import markdown
 from . import cfg
+from . import warning
 
 
 # Precompile regexes
