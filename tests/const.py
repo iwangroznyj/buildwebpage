@@ -25,7 +25,7 @@ SUB_MARKDOWN = u'''<!-- markdown -->
 
 # comparison strings
 CMP_BARE = u'''<html>
-<head><title>\xf6\u044b - <!-- title --></title></head>
+<head><title>\xf6\u044b - </title></head>
 <body><p id='test_menuitem'>Menu</p>
 ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 </body></html>
@@ -38,14 +38,14 @@ ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 </body></html>
 '''
 CMP_MENU = u'''<html>
-<head><title>\xf6\u044b - <!-- title --></title></head>
+<head><title>\xf6\u044b - </title></head>
 <body><p id='test_menuitem' class='menu-current' >Menu</p>
 
 ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 </body></html>
 '''
 CMP_MENUBAD = u'''<html>
-<head><title>\xf6\u044b - <!-- title --></title></head>
+<head><title>\xf6\u044b - </title></head>
 <body><p id='test_menuitem'>Menu</p>
 
 ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
