@@ -31,8 +31,8 @@ class TestTemplate(unittest.TestCase):
                                                   const.SUBPAGE)
         self.sub_menubad = buildwp.subpage.Subpage(const.SUB_MENUBAD + '\n' +
                                                    const.SUBPAGE)
-        self.sub_md = buildwp.subpage.MarkdownSubpage(const.SUB_TITLE + '\n' +
-                                                      const.SUB_MARKDOWN)
+        self.sub_md = buildwp.subpage.Subpage(const.SUB_TITLE + '\n' +
+                                              const.SUB_MARKDOWN)
 
     def test_construct_template(self):
         '''Test the error handling and title recognision of the template.'''

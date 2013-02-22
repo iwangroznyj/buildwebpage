@@ -16,7 +16,8 @@ SUBPAGE = u'ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434'
 SUB_TITLE = '<!-- title: This is a test page! -->'
 SUB_MENUOK = '<!-- menu: test_menuitem -->'
 SUB_MENUBAD = '<!-- menu: test_nonexistent -->'
-SUB_MARKDOWN = u'''# Test
+SUB_MARKDOWN = u'''<!-- markdown -->
+# Test
 `ASCII`
 \xdcnic\xf6de  
 *\u044e\u043d\u0438\u043a\u043e\u0434*'''
@@ -32,29 +33,27 @@ ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 CMP_TITLE = u'''<html>
 <head><title>\xf6\u044b - This is a test page!</title></head>
 <body><p id='test_menuitem'>Menu</p>
-<!-- title: This is a test page! -->
+
 ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 </body></html>
 '''
 CMP_MENU = u'''<html>
 <head><title>\xf6\u044b - <!-- title --></title></head>
-<body><p id='test_menuitem' class='menu_current' >Menu</p>
-<!-- menu: test_menuitem -->
+<body><p id='test_menuitem' class='menu-current' >Menu</p>
+
 ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 </body></html>
 '''
 CMP_MENUBAD = u'''<html>
 <head><title>\xf6\u044b - <!-- title --></title></head>
 <body><p id='test_menuitem'>Menu</p>
-<!-- menu: test_nonexistent -->
+
 ASCII \xdcnic\xf6de \u044e\u043d\u0438\u043a\u043e\u0434
 </body></html>
 '''
 CMP_MARKDOWN = u'''<html>
 <head><title>\xf6\u044b - This is a test page!</title></head>
 <body><p id='test_menuitem'>Menu</p>
-<!-- title: This is a test page! -->
-
 <h1>Test</h1>
 <p><code>ASCII</code>
 \xdcnic\xf6de<br />

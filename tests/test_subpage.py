@@ -45,8 +45,8 @@ class TestSubpage(unittest.TestCase):
 
     def test_markdown_subpage(self):
         '''Test if menu/title strings are recognised in a markdown subpage'''
-        mdsub = buildwp.subpage.MarkdownSubpage(const.SUB_TITLE + '\n' +
-                                                const.SUB_MARKDOWN)
+        mdsub = buildwp.subpage.Subpage(const.SUB_TITLE + '\n' +
+                                        const.SUB_MARKDOWN)
         self.assertTrue(mdsub.has_title)
         self.assertEqual(mdsub.title, 'This is a test page!')
         self.assertFalse(mdsub.has_menu)
