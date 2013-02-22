@@ -10,10 +10,6 @@ from . import subpage
 from . import warning
 
 
-# Markdown regex
-RE_MARKDOWN = re.compile(cfg.RE_MARKDOWN, re.UNICODE | re.IGNORECASE)
-
-
 class WebpageSubpageError(Exception):
     '''Error raised by the Webpage class if there are no subpages given.'''
 
@@ -44,7 +40,9 @@ class Webpage(object):
             self.fileprefix = os.path.commonprefix(filebases)
         self.dest = settings['dest']
         self.template = self._open_template()
-        self.subpages = self._open_subpages()
+        self.subpages = [subpage.read_subpagefile(filename)
+                         for filename in self.subpagefiles]
+        self.subpages = [sub for sub in self.subpages if sub]
 
     def build_webpage(self):
         '''Build the webpage from the template using the subpages.
@@ -67,28 +65,6 @@ class Webpage(object):
                     fileptr.write(finalpage.encode(cfg.INPUTENC))
             except IOError as error:
                 warning.warnf(str(error))
-
-    def _open_subpages(self):
-        '''Open the subpage files and create Subpage objects from them.
-
-        :return: loaded subpages
-        :rtype:  list of subpage.Subpage
-
-        '''
-        subpages = list()
-        for filename in self.subpagefiles:
-            try:
-                with open(filename) as fileptr:
-                    content = unicode(fileptr.read(), cfg.INPUTENC)
-            except IOError as error:
-                warning.warnf(str(error))
-                continue
-            if RE_MARKDOWN.search(content):
-                sub = subpage.MarkdownSubpage(content, filename)
-            else:
-                sub = subpage.Subpage(content, filename)
-            subpages.append(sub)
-        return subpages
 
     def _open_template(self):
         '''Open the template file and create Template object
