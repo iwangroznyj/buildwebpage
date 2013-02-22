@@ -21,7 +21,7 @@ def main(args):
     
     '''
     try:
-        settings = buildwp.cli.Settings(args[1:])
+        settings = buildwp.cli.get_settings(args[1:])
         webpage = buildwp.webpage.Webpage(settings)
         webpage.build_webpage()
     except Exception as error:
