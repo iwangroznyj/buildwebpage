@@ -2,7 +2,6 @@
 
 
 import os.path
-import re
 
 from . import cfg
 from . import template
@@ -32,10 +31,6 @@ class Webpage(object):
         '''
         if not settings['subpages']:
             raise WebpageSubpageError('No subpages found')
-        self.fileprefix = ''
-        if len(settings['subpages']) > 1:
-            filebases = [os.path.basename(s) for s in settings['subpages']]
-            self.fileprefix = os.path.commonprefix(filebases)
         self.dest = settings['dest']
         self.template = template.read_templatefile(settings['template'])
         self.subpages = [subpage.read_subpagefile(filename)
@@ -54,7 +49,7 @@ class Webpage(object):
             os.makedirs(self.dest)
         for page in self.subpages:
             oldfile = os.path.basename(page.filename)
-            newfile = oldfile[len(self.fileprefix):]
+            newfile = oldfile[len(cfg.FILEPREFIX):]
             newfile = os.path.join(self.dest, newfile)
             print '{0} + {1} => {2}'.format(templatefile, oldfile, newfile)
             finalpage = self.template.build_page(page)

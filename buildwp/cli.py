@@ -22,7 +22,8 @@ from . import cfg
 HLP_TEMPL = 'template for the webpage \
 (defaults to \'{0}\')'.format(cfg.DEFAULT_TEMPLATE)
 HLP_SUBPG = 'subpage of the webpage \
-(defaults to \'{0}\')'.format(cfg.DEFAULT_SUBPAGES)
+(defaults to all files starting with \'{0}\' \
+in the current folder)'.format(cfg.FILEPREFIX)
 HLP_CONF = 'configuration file \
 (defaults to \'{0}\')'.format(cfg.DEFAULT_CONF)
 HLP_DEST = 'destination folder of the finished webpage \
@@ -53,7 +54,7 @@ def get_settings(args):
     settings.update(cfg_args)
     settings.update(cli_args)
     if not 'subpages' in settings:
-        settings['subpages'] = glob.glob(cfg.DEFAULT_SUBPAGES)
+        settings['subpages'] = glob.glob(cfg.FILEPREFIX + '*')
     if 'gencfg' in cli_args:
         write_configfile(settings, settings['conf'])
     return settings
@@ -69,7 +70,8 @@ def parse_commandline(args):
 
     '''
     parser = argparse.ArgumentParser(description=cfg.DESCRIPTION,
-                                     formatter_class=argparse.RawDescriptionHelpFormatter,
+                                     formatter_class=
+                                     argparse.RawDescriptionHelpFormatter,
                                      argument_default=argparse.SUPPRESS)
     parser.add_argument('template', nargs='?', help=HLP_TEMPL)
     parser.add_argument('subpages', nargs='*', metavar='subpage',

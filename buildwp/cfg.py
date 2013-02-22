@@ -30,10 +30,11 @@ associated with a subpage by refering to its id using the
 formatted using css.
 
 The resulting webpage files will be created in the directory which is set to be
-the destination folder.'''
+the destination folder.  In process all files will be stripped off the leading
+underscore.'''
 
 # Default input and output files
-DEFAULT_SUBPAGES = '_*'
+FILEPREFIX = '_'
 DEFAULT_TEMPLATE = 'template.html'
 DEFAULT_DEST = 'build/'
 DEFAULT_CONF = 'buildwebpage.cfg'
