@@ -39,7 +39,7 @@ class Webpage(object):
         self.dest = settings['dest']
         self.template = template.read_templatefile(settings['template'])
         self.subpages = [subpage.read_subpagefile(filename)
-                         for filename in settings['subpages']
+                         for filename in settings['subpages']]
         self.subpages = [sub for sub in self.subpages if sub]
 
     def build_webpage(self):
