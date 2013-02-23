@@ -49,7 +49,9 @@ class Webpage(object):
             os.makedirs(self.dest)
         for page in self.subpages:
             oldfile = os.path.basename(page.filename)
-            newfile = oldfile[len(cfg.FILEPREFIX):]
+            newfile = oldfile[::]
+            if newfile.startswith(cfg.FILEPREFIX):
+                newfile = newfile[len(cfg.FILEPREFIX):]
             newfile = os.path.join(self.dest, newfile)
             print '{0} + {1} => {2}'.format(templatefile, oldfile, newfile)
             finalpage = self.template.build_page(page)
