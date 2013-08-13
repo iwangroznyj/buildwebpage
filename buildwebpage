@@ -15,10 +15,10 @@ import buildwp.webpage
 
 def main(args):
     '''Build the webpage.
-    
+
     :param args: command-line arguments
     :type  args: list of str
-    
+
     '''
     try:
         settings = buildwp.cli.get_settings(args[1:])
