@@ -56,7 +56,7 @@ class Webpage(object):
             print('{0} + {1} => {2}'.format(templatefile, oldfile, newfile))
             finalpage = self.template.build_page(page)
             try:
-                with open(newfile, 'w') as fileptr:
-                    fileptr.write(finalpage.encode(cfg.INPUTENC))
+                with open(newfile, 'w', endoding='utf-8') as fileptr:
+                    fileptr.write(finalpage)
             except IOError as error:
                 warning.warnf(str(error))
