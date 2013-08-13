@@ -38,7 +38,7 @@ class Subpage(object):
         '''Create a subpage.
 
         :param content:  content of the subpage
-        :type  content:  unicode
+        :type  content:  str
         :param filename: name of the subpage file
         :type  filename: str
 
@@ -75,7 +75,7 @@ class Subpage(object):
         '''Return content of the subpage in html
 
         :return: html code
-        :rtype:  unicode
+        :rtype:  str
 
         '''
         if self.is_markdown:
