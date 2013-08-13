@@ -43,7 +43,7 @@ class Template(object):
         '''Create template.
 
         :param content: content of the template
-        :type  content: unicode
+        :type  content: str
         :raises TemplateContentError: if the template lacks the string which
                                       should be replaced by the subpage.
 
@@ -64,7 +64,7 @@ class Template(object):
         :param subpage: subpage to be inserted as content
         :type  subpage: subpage.Subpage
         :return:        built webpage
-        :rtype:         unicode
+        :rtype:         str
 
         '''
         webpage = self.content
