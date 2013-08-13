@@ -22,9 +22,9 @@ def read_subpagefile(filename):
     :rtype:          Subpage / NoneType
 
     '''
-    with open(filename) as fileptr:
+    with open(filename, encoding='utf-8') as fileptr:
         try:
-            content = str(fileptr.read(), cfg.INPUTENC)
+            content = fileptr.read()
         except IOError as error:
             warning.warnf(str(error))
             return None
