@@ -27,8 +27,8 @@ def read_templatefile(filename):
     :rtype:          Template
 
     '''
-    with open(filename) as fileptr:
-        content = str(fileptr.read(), cfg.INPUTENC)
+    with open(filename, 'r', encoding='utf-8') as fileptr:
+        content = fileptr.read()
     return Template(content, filename)
 
 
