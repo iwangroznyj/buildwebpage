@@ -120,5 +120,5 @@ def write_configfile(settings, filename):
     sec_subpages = CFG_SECTION.format(section=cfg.SECTION_SUBPG,
                                       options='\n'.join(settings['subpages']))
     config = sec_settings + '\n\n' + sec_subpages
-    with open(filename, 'w') as cfgfile:
+    with open(filename, 'w', encoding=cfg.INPUTENC) as cfgfile:
         cfgfile.write(config)
