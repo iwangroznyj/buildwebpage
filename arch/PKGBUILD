@@ -1,0 +1,22 @@
+pkgname=buildwebpage-git
+_gitname=("buildwebpage")
+pkgver=v1.0.12.g9737096
+pkgrel=1
+pkgdesc="Script for building static webpages"
+url="http://johannes-englisch.de/en/programmes.html#buildwebpage"
+license=('MIT')
+arch=('any')
+depends=('python')
+makedepends=('git')
+source=('git://github.com/iwangroznyj/buildwebpage.git')
+md5sums=('SKIP')
+
+pkgver() {
+    cd ${_gitname}
+    git describe --always | sed 's|-|.|g'
+}
+
+package() {
+    cd ${_gitname}
+    python setup.py install --root=$pkgdir --optimize=1
+}
