@@ -12,7 +12,7 @@ following order:
 
 
 import argparse
-import ConfigParser
+import configparser
 import glob
 
 from . import cfg
@@ -93,7 +93,7 @@ def parse_configfile(filename):
     :rtype:          dict
 
     '''
-    config = ConfigParser.SafeConfigParser(allow_no_value=True)
+    config = configparser.SafeConfigParser(allow_no_value=True)
     config.read(filename)
     content = dict()
     if config.has_section(cfg.SECTION_CONFIG):
@@ -113,7 +113,7 @@ def write_configfile(settings, filename):
 
     '''
     options = [CFG_OPTION.format(option=option, value=value)
-               for option, value in settings.items()
+               for option, value in list(settings.items())
                if option in ['template', 'dest']]
     sec_settings = CFG_SECTION.format(section=cfg.SECTION_CONFIG,
                                       options='\n'.join(options))

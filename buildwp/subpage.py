@@ -24,7 +24,7 @@ def read_subpagefile(filename):
     '''
     with open(filename) as fileptr:
         try:
-            content = unicode(fileptr.read(), cfg.INPUTENC)
+            content = str(fileptr.read(), cfg.INPUTENC)
         except IOError as error:
             warning.warnf(str(error))
             return None

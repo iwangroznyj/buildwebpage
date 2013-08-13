@@ -28,7 +28,7 @@ def read_templatefile(filename):
 
     '''
     with open(filename) as fileptr:
-        content = unicode(fileptr.read(), cfg.INPUTENC)
+        content = str(fileptr.read(), cfg.INPUTENC)
     return Template(content, filename)
 
 
