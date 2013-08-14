@@ -1,0 +1,15 @@
+pkgname=buildwebpage
+pkgver=1.2
+pkgrel=1
+pkgdesc="Script for building static webpages"
+url="http://johannes-englisch.de/en/programmes.html#buildwebpage"
+license=('MIT')
+arch=('any')
+depends=('python' 'python-markdown')
+source=('http://www.gamasche.info/files/buildwebpage-1.2.tar.gz')
+md5sums=('6794868bffab1cf1fa7a5ded6da9cf17')
+
+package() {
+    cd ${pkgname}-${pkgver}
+    python setup.py install --root=$pkgdir --optimize=1
+}
