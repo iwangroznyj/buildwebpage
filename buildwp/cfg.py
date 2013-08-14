@@ -7,7 +7,7 @@ meant to be edited by the programme user.
 
 
 # Programme data
-VERSION = '1.1'
+VERSION = '1.2'
 DESCRIPTION = '''Creates a webpage by inserting subpages into a template file.
 
 The template file has to contain the comment `<!-- content -->` which is then
