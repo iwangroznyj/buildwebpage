@@ -58,7 +58,7 @@ class Template(object):
         if RE_TITLE.search(content):
             self.has_title = True
 
-    def build_page(self, subpage):
+    def insert_subpage(self, subpage):
         '''Place the subpage into the template.
 
         :param subpage: subpage to be inserted as content
