@@ -19,7 +19,7 @@ SUB_MENUBAD = '<!-- menu: test_nonexistent -->'
 SUB_MARKDOWN = '''<!-- markdown -->
 # Test
 `ASCII`
-\xdcnic\xf6de  
+\xdcnic\xf6de
 *\u044e\u043d\u0438\u043a\u043e\u0434*'''
 
 
@@ -56,7 +56,7 @@ CMP_MARKDOWN = '''<html>
 <body><p id='test_menuitem'>Menu</p>
 <h1>Test</h1>
 <p><code>ASCII</code>
-\xdcnic\xf6de<br />
+\xdcnic\xf6de
 <em>\u044e\u043d\u0438\u043a\u043e\u0434</em></p>
 </body></html>
 '''
