@@ -6,8 +6,8 @@ meant to be edited by the programme user.
 '''
 
 
-# Programme data
 VERSION = '1.2'
+# TODO update description
 DESCRIPTION = '''Creates a webpage by inserting subpages into a template file.
 
 The template file has to contain the comment `<!-- content -->` which is then
@@ -33,11 +33,6 @@ The resulting webpage files will be created in the directory which is set to be
 the destination folder.  In process all files will be stripped off the leading
 underscore.'''
 
-# Default input and output files
-FILEPREFIX = '_'
-DEFAULT_TEMPLATE = 'template.html'
-DEFAULT_DEST = 'build/'
-DEFAULT_CONF = 'buildwebpage.cfg'
 DEFAULT_HTMLFORMAT = 'xhtml1'
 
 # Substitution settings
@@ -53,10 +48,6 @@ INPUTENC = 'utf8'
 
 # Html templates
 HTML_COMMENT = '<!-- {0} -->'
-
-# Name of the main section in the config file
-SECTION_CONFIG = 'settings'
-SECTION_SUBPG = 'subpages'
 
 # Partial regexes
 _RE_COMMENT = r'<!--\s*{0}\s*-->'

@@ -10,6 +10,7 @@ following order:
 
 '''
 
+__all__ = ['get_settings']
 
 import argparse
 import glob
@@ -17,7 +18,10 @@ import glob
 from . import cfg
 
 
-# Command line help strings
+FILEPREFIX = '_'
+DEFAULT_TEMPLATE = 'template.html'
+DEFAULT_DEST = 'build/'
+
 HLP_TEMPL = 'template for the webpage \
 (defaults to \'{0}\')'.format(cfg.DEFAULT_TEMPLATE)
 HLP_SUBPG = 'subpage of the webpage \
@@ -43,7 +47,7 @@ def get_settings(args):
     if 'conf' in cli_args:
         settings['conf'] = cli_args['conf']
     settings.update(cli_args)
-    if not 'subpages' in settings:
+    if 'subpages' not in settings:
         settings['subpages'] = glob.glob(cfg.FILEPREFIX + '*')
     return settings
 
@@ -57,10 +61,10 @@ def parse_commandline(args):
     :rtype:      dict
 
     '''
-    parser = argparse.ArgumentParser(description=cfg.DESCRIPTION,
-                                     formatter_class=
-                                     argparse.RawDescriptionHelpFormatter,
-                                     argument_default=argparse.SUPPRESS)
+    parser = argparse.ArgumentParser(
+        description=cfg.DESCRIPTION,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        argument_default=argparse.SUPPRESS)
     parser.add_argument('template', nargs='?', help=HLP_TEMPL)
     parser.add_argument('subpages', nargs='*', metavar='subpage',
                         help=HLP_SUBPG)
