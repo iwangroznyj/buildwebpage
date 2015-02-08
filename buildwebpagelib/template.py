@@ -18,7 +18,7 @@ WARN_TEMPL_MENU = 'Template lacks menu item referenced by subpage'
 ERR_TEMPL_CONTENT = 'Template lacks content string'
 
 
-def read_templatefile(filename):
+def read_template(filename):
     '''Open the template file and create a Template.
 
     :param filename: name of the template file

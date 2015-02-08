@@ -1,10 +1,13 @@
-'''Classes for representing subpages of a webpage.'''
-
-
 import re
 import markdown
+import glob
+
+from os.path import join, basename
+
 from . import cfg
 from . import warning
+
+__all__ = ['read_subpages', 'Subpage']
 
 
 # Precompile regexes
@@ -13,22 +16,16 @@ RE_MENU = re.compile(cfg.RE_SUBPG_MENU, re.UNICODE | re.IGNORECASE)
 RE_MARKDOWN = re.compile(cfg.RE_MARKDOWN, re.UNICODE | re.IGNORECASE)
 
 
-def read_subpagefile(filename):
-    '''Open subpage from file.
-
-    :param filename: name of the subpage file
-    :type  filename: str
-    :return:         subpage on success; None on failure
-    :rtype:          Subpage / NoneType
-
-    '''
-    with open(filename, encoding='utf-8') as fileptr:
+def read_subpages(folder, blacklist=()):
+    for filename in glob.iglob(join(folder, '*')):
+        if basename(filename) in blacklist:
+            continue
         try:
-            content = fileptr.read()
+            with open(filename, encoding='utf-8') as f:
+                yield Subpage(f.read(), filename)
         except IOError as error:
-            warning.warnf(str(error))
-            return None
-    return Subpage(content, filename)
+            warning.warnf('Could not read {}'.format(filename))
+            warning.warnf(error)
 
 
 class Subpage(object):
