@@ -67,20 +67,18 @@ class Template(object):
         :rtype:         str
 
         '''
-        webpage = self.content
+        composed_page = self.content
         if self.has_title:
-            title = ''
-            if subpage.has_title:
-                title = subpage.title
+            if subpage.title:
+                composed_page = RE_TITLE.sub(subpage.title, composed_page)
             else:
                 warning.warnf(WARN_SUBPG_TITLE)
-            webpage = RE_TITLE.sub(title, webpage)
-        elif webpage.has_title:
+        elif subpage.title:
             warning.warnf(WARN_TEMPL_TITLE)
-        if subpage.has_menu:
-            re_menu = re.compile(cfg.RE_TEMPL_MENUID.format(subpage.menu))
-            if re_menu.search(webpage):
-                webpage = re_menu.sub(MENU_SUBSTITUTION, webpage)
+        if subpage.menu_id:
+            re_menu = re.compile(cfg.RE_TEMPL_MENUID.format(subpage.menu_id))
+            if re_menu.search(composed_page):
+                composed_page = re_menu.sub(MENU_SUBSTITUTION, composed_page)
             else:
                 warning.warnf(WARN_TEMPL_MENU)
-        return RE_CONTENT.sub(subpage.get_html(), webpage)
+        return RE_CONTENT.sub(subpage.content, composed_page)

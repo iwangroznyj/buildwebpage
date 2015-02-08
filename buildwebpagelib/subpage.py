@@ -1,8 +1,8 @@
 import re
-import markdown
-import glob
 
+from glob import iglob
 from os.path import join, basename
+from markdown import markdown
 
 from . import cfg
 from . import warning
@@ -17,7 +17,7 @@ RE_MARKDOWN = re.compile(cfg.RE_MARKDOWN, re.UNICODE | re.IGNORECASE)
 
 
 def read_subpages(folder, blacklist=()):
-    for filename in glob.iglob(join(folder, '*')):
+    for filename in iglob(join(folder, '*')):
         if basename(filename) in blacklist:
             continue
         try:
@@ -29,54 +29,38 @@ def read_subpages(folder, blacklist=()):
 
 
 class Subpage(object):
-    '''Representation of a html subpage.'''
 
     def __init__(self, content, filename=None):
-        '''Create a subpage.
-
-        :param content:  content of the subpage
-        :type  content:  str
-        :param filename: name of the subpage file
-        :type  filename: str
-
-        '''
-        self.filename = ''
         self.content = content
-        self.has_title = False
-        self.has_menu = False
-        self.is_markdown = False
-        self.title = ''
-        self.menu = ''
+        self.filename = ''
         if filename:
             self.filename = filename
-        self._parse_comments()
 
-    def _parse_comments(self):
-        '''Parse comments found in the subpage.'''
-        match = RE_TITLE.search(self.content)
+    @property
+    def title(self):
+        return self._title
+
+    @property
+    def menu_id(self):
+        return self._menu_id
+
+    @property
+    def content(self):
+        return self._content
+
+    @content.setter
+    def content(self, content):
+        self._title = ''
+        match = RE_TITLE.search(content)
         if match:
-            self.title = match.group(1)
-            self.has_title = True
-            self.content = self.content.replace(match.group(0), '')
-        match = RE_MENU.search(self.content)
+            self._title = match.group(1)
+
+        self._menu_id = ''
+        match = RE_MENU.search(content)
         if match:
-            self.menu = match.group(1)
-            self.has_menu = True
-            self.content = self.content.replace(match.group(0), '')
-        match = RE_MARKDOWN.search(self.content)
-        if match:
-            self.is_markdown = True
-            self.content = self.content.replace(match.group(0), '')
+            self._menu_id = match.group(1)
 
-    def get_html(self):
-        '''Return content of the subpage in html
-
-        :return: html code
-        :rtype:  str
-
-        '''
-        if self.is_markdown:
-            return markdown.markdown(self.content,
-                                     output_format=cfg.DEFAULT_HTMLFORMAT)
+        if RE_MARKDOWN.search(content):
+            self._content = markdown(content)
         else:
-            return self.content
+            self._content = content
