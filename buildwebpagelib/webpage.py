@@ -2,7 +2,7 @@ import re
 
 from markdown import markdown
 
-from . import warning
+from .warning import warnf
 
 __all__ = ['Subpage', 'Template']
 
@@ -76,13 +76,13 @@ class Template(object):
             if subpage.title:
                 whole_page = RE_TEMPL_TITLE.sub(subpage.title, whole_page)
             else:
-                warning.warnf('Missing title in subpage {}'.format(subpage.filename))
+                warnf('Missing title in subpage ', subpage.filename)
 
         if subpage.menu_id:
             pattern = re.compile(MENU_ATTR.format(subpage.menu_id), re.U | re.I)
             if pattern.search(whole_page):
                 whole_page = pattern.sub(MENU_SUBSTITUTION, whole_page)
             else:
-                warning.warnf('Missing menu item in template: {}'.format(subpage.menu_id))
+                warnf('Missing menu item in template: ', subpage.menu_id)
 
         return RE_TEMPL_CONTENT.sub(subpage.content, whole_page)

@@ -5,7 +5,7 @@ from os import mkdir
 from os.path import basename, isdir, join
 
 from .webpage import Subpage, Template
-from . import warning
+from .warning import warnf
 
 
 VERSION = '1.2'
@@ -71,8 +71,8 @@ def read_subpages(folder, blacklist=()):
             with open(filename, encoding='utf-8') as f:
                 yield Subpage(f.read(), filename)
         except IOError as error:
-            warning.warnf('Could not read {}'.format(filename))
-            warning.warnf(error)
+            warnf('Could not read ', filename)
+            warnf(error)
 
 
 def create_webpage(templ, subpages, destination):
@@ -86,4 +86,4 @@ def create_webpage(templ, subpages, destination):
             with open(output_file, 'w') as f:
                 f.write(composed)
         except IOError as error:
-            warning.warnf(error)
+            warnf(error)
