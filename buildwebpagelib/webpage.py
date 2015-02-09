@@ -15,46 +15,37 @@ RE_TEMPL_CONTENT = re.compile(r'<!--\s*CONTENT\s*-->', re.U | re.I)
 RE_TEMPL_TITLE = re.compile(r'<!--\s*TITLE\s*-->', re.U | re.I)
 
 # building blocks for regexes matching html attributes (menu_id="xxx")
-MENU_ATTR = r'(<.*?MENU_ID\s*=\s*[\'"]{}[\'"])(.*?>)'
+MENU_ATTR = r'(<.*?id\s*=\s*[\'"]{}[\'"])(.*?>)'
 MENU_SUBSTITUTION = r"\1 class='menu-current' \2"
 
 
 class Subpage(object):
 
-    def __init__(self, content, filename=None):
-        self.content = content
+    def __init__(self, raw_content=None, filename=None):
+        self.content = ''
+        self.title = ''
+        self.menu_id = ''
         self.filename = ''
+        if raw_content:
+            self.induce_properties(raw_content)
         if filename:
             self.filename = filename
 
-    @property
-    def title(self):
-        return self._title
-
-    @property
-    def menu_id(self):
-        return self._menu_id
-
-    @property
-    def content(self):
-        return self._content
-
-    @content.setter
-    def content(self, content):
-        self._title = ''
-        match = RE_SUBPAGE_TITLE.search(content)
+    def induce_properties(self, raw_content):
+        self.title = ''
+        match = RE_SUBPAGE_TITLE.search(raw_content)
         if match:
-            self._title = match.group(1)
+            self.title = match.group(1)
 
-        self._menu_id = ''
-        match = RE_SUBPAGE_MENUID.search(content)
+        self.menu_id = ''
+        match = RE_SUBPAGE_MENUID.search(raw_content)
         if match:
-            self._menu_id = match.group(1)
+            self.menu_id = match.group(1)
 
-        if RE_MARKDOWN.search(content):
-            self._content = markdown(content)
+        if RE_MARKDOWN.search(raw_content):
+            self.content = markdown(raw_content)
         else:
-            self._content = content
+            self.content = raw_content
 
 
 class Template(object):
