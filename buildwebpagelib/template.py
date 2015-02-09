@@ -2,7 +2,7 @@ import re
 
 from . import warning
 
-__all__ = ['read_template', 'Template']
+__all__ = ['Template']
 
 
 RE_TEMPL_CONTENT = re.compile(r'<!--\s*CONTENT\s*-->', re.U | re.I)
@@ -11,12 +11,6 @@ RE_TEMPL_TITLE = re.compile(r'<!--\s*TITLE\s*-->', re.U | re.I)
 # building blocks for regexes matching html attributes (menu_id="xxx")
 MENU_ATTR = r'(<.*?MENU_ID\s*=\s*[\'"]{}[\'"])(.*?>)'
 MENU_SUBSTITUTION = r"\1 class='menu-current' \2"
-
-
-def read_template(filename):
-    with open(filename, encoding='utf-8') as f:
-        content = f.read()
-    return Template(content, filename)
 
 
 class Template(object):

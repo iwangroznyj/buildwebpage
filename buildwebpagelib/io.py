@@ -1,5 +1,13 @@
 import argparse
 
+from glob import iglob
+from os import mkdir
+from os.path import basename, isdir, join
+
+from .subpage import Subpage
+from .template import Template
+from . import warning
+
 
 VERSION = '1.2'
 # TODO update description
@@ -48,3 +56,35 @@ def parse_commandline(args):
         default=DEFAULT_TEMPLATE,
         help='basename of the template file (default: _template.html)')
     return parser.parse_args(args)
+
+
+def read_template(filename):
+    with open(filename, encoding='utf-8') as f:
+        content = f.read()
+    return Template(content, filename)
+
+
+def read_subpages(folder, blacklist=()):
+    for filename in iglob(join(folder, '*')):
+        if basename(filename) in blacklist:
+            continue
+        try:
+            with open(filename, encoding='utf-8') as f:
+                yield Subpage(f.read(), filename)
+        except IOError as error:
+            warning.warnf('Could not read {}'.format(filename))
+            warning.warnf(error)
+
+
+def create_webpage(templ, subpages, destination):
+    if not isdir(destination):
+        mkdir(destination)
+    for subpage in subpages:
+        output_file = join(destination, basename(subpage.filename))
+        composed = templ.insert_subpage(subpage)
+        print(templ.filename, ' + ', subpage.filename, ' => ', output_file)
+        try:
+            with open(output_file, 'w') as f:
+                f.write(composed)
+        except IOError as error:
+            warning.warnf(error)
