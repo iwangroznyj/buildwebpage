@@ -4,16 +4,14 @@ from glob import iglob
 from os.path import join, basename
 from markdown import markdown
 
-from . import cfg
 from . import warning
 
 __all__ = ['read_subpages', 'Subpage']
 
 
-# Precompile regexes
-RE_TITLE = re.compile(cfg.RE_SUBPG_TITLE, re.UNICODE | re.IGNORECASE)
-RE_MENU = re.compile(cfg.RE_SUBPG_MENU, re.UNICODE | re.IGNORECASE)
-RE_MARKDOWN = re.compile(cfg.RE_MARKDOWN, re.UNICODE | re.IGNORECASE)
+RE_SUBPAGE_TITLE = re.compile(r'<!--\s*title\s*:\s*(.+?)\s*-->', re.U | re.I)
+RE_SUBPAGE_MENUID = re.compile(r'<!--\s*menu_id\s*:\s*(.+?)\s*-->', re.U | re.I)
+RE_MARKDOWN = re.compile(r'<!--\s*markdown\s*-->', re.U | re.I)
 
 
 def read_subpages(folder, blacklist=()):
@@ -51,12 +49,12 @@ class Subpage(object):
     @content.setter
     def content(self, content):
         self._title = ''
-        match = RE_TITLE.search(content)
+        match = RE_SUBPAGE_TITLE.search(content)
         if match:
             self._title = match.group(1)
 
         self._menu_id = ''
-        match = RE_MENU.search(content)
+        match = RE_SUBPAGE_MENUID.search(content)
         if match:
             self._menu_id = match.group(1)
 
