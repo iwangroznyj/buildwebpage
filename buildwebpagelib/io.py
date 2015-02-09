@@ -4,8 +4,7 @@ from glob import iglob
 from os import mkdir
 from os.path import basename, isdir, join
 
-from .subpage import Subpage
-from .template import Template
+from .webpage import Subpage, Template
 from . import warning
 
 
