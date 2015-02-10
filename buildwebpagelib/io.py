@@ -6,6 +6,7 @@ from os.path import basename, isdir, join
 
 from .webpage import Subpage, Template
 from .warning import warnf
+from .filters import convert_markdown
 
 
 VERSION = '1.2'
@@ -69,7 +70,7 @@ def read_subpages(folder, blacklist=()):
             continue
         try:
             with open(filename, encoding='utf-8') as f:
-                yield Subpage(f.read(), filename)
+                yield Subpage(convert_markdown(f.read()), filename)
         except IOError as error:
             warnf('Could not read ', filename)
             warnf(error)

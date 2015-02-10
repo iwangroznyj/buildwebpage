@@ -1,7 +1,5 @@
 import re
 
-from markdown import markdown
-
 from .warning import warnf
 
 __all__ = ['Subpage', 'Template']
@@ -9,7 +7,6 @@ __all__ = ['Subpage', 'Template']
 
 RE_SUBPAGE_TITLE = re.compile(r'<!--\s*title\s*:\s*(.+?)\s*-->', re.U | re.I)
 RE_SUBPAGE_MENUID = re.compile(r'<!--\s*menu_id\s*:\s*(.+?)\s*-->', re.U | re.I)
-RE_MARKDOWN = re.compile(r'<!--\s*markdown\s*-->', re.U | re.I)
 
 RE_TEMPL_CONTENT = re.compile(r'<!--\s*CONTENT\s*-->', re.U | re.I)
 RE_TEMPL_TITLE = re.compile(r'<!--\s*TITLE\s*-->', re.U | re.I)
@@ -41,11 +38,6 @@ class Subpage(object):
         match = RE_SUBPAGE_MENUID.search(raw_content)
         if match:
             self.menu_id = match.group(1)
-
-        if RE_MARKDOWN.search(raw_content):
-            self.content = markdown(raw_content)
-        else:
-            self.content = raw_content
 
 
 class Template(object):
