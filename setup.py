@@ -1,13 +1,5 @@
 #! /usr/bin/env python3
 
-'''Buildwebpage setup script.
-
-Uses distutils in order to install the buildwebpage script or create
-distributable packages.
-
-'''
-
-
 from distutils.core import setup
 import buildwebpagelib as bw
 
