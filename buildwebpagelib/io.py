@@ -6,7 +6,7 @@ from os.path import basename, isdir, join
 
 from .webpage import Subpage, Template
 from .warning import warnf
-from .filters import convert_markdown
+from .filters import convert_markdown, strip_html_comments
 
 
 VERSION = '1.2'
@@ -85,6 +85,6 @@ def create_webpage(templ, subpages, destination):
         print(templ.filename, ' + ', subpage.filename, ' => ', output_file)
         try:
             with open(output_file, 'w') as f:
-                f.write(composed)
+                print(strip_html_comments(composed), file=f)
         except IOError as error:
             warnf(error)
