@@ -39,6 +39,8 @@ class Subpage(object):
         if match:
             self.menu_id = match.group(1)
 
+        self.content = raw_content
+
 
 class Template(object):
 
