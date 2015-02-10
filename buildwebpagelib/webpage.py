@@ -50,8 +50,6 @@ class Template(object):
             self.filename = filename
         self.content = content
         self.has_title = False
-        if not RE_TEMPL_CONTENT.search(content):
-            raise ValueError('Template lacks substitution string')
         if RE_TEMPL_TITLE.search(content):
             self.has_title = True
 
