@@ -1,4 +1,6 @@
 import re
+from os.path import getmtime
+from time import gmtime, strftime
 
 from .warning import warnf
 
@@ -10,6 +12,7 @@ RE_SUBPAGE_MENUID = re.compile(r'<!--\s*menu_id\s*:\s*(.+?)\s*-->', re.U | re.I)
 
 RE_TEMPL_CONTENT = re.compile(r'<!--\s*CONTENT\s*-->', re.U | re.I)
 RE_TEMPL_TITLE = re.compile(r'<!--\s*TITLE\s*-->', re.U | re.I)
+RE_TEMPL_MOD_DATE = re.compile(r'<!--\s*MODIFIED_DATE\s*-->', re.U | re.I)
 
 # building blocks for regexes matching html attributes (menu_id="xxx")
 MENU_ATTR = r'(<.*?id\s*=\s*[\'"]{}[\'"])(.*?>)'
@@ -67,5 +70,8 @@ class Template(object):
                 whole_page = pattern.sub(MENU_SUBSTITUTION, whole_page)
             else:
                 warnf('Missing menu item in template: ', subpage.menu_id)
+
+        modified_date = strftime('%d/%m/%Y', gmtime(getmtime(subpage.filename)))
+        whole_page = RE_TEMPL_MOD_DATE.sub(modified_date, whole_page)
 
         return RE_TEMPL_CONTENT.sub(subpage.content, whole_page)
