@@ -81,6 +81,6 @@ def create_webpage(templ, subpages, destination):
         print(templ.filename, ' + ', subpage.filename, ' => ', output_file)
         try:
             with open(output_file, 'w') as f:
-                print(strip_html_comments(composed), file=f)
+                f.write(strip_html_comments(composed))
         except IOError as error:
             warnf(error)
