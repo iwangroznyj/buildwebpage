@@ -35,6 +35,9 @@ It is also possible to assign a title to a subpage.  A subpage may contain a
 comment `<!-- title: SOME TITLE TEXT -->` which will be inserted in place of a
 `<!-- title -->` comment in the template.
 
+If the template contains a comment `<!-- modified_date -->', the comment will be
+replaced with the date the subpage file was last modified.
+
 Additionally one can mark a specific tag in the template to be the menu item
 associated with a subpage by refering to its id using the
 `<!-- menu: TAG ID -->` comment.  Any tag that contains the attribute
