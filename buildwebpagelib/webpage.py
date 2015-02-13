@@ -14,7 +14,7 @@ RE_TEMPL_CONTENT = re.compile(r'<!--\s*CONTENT\s*-->', re.U | re.I)
 RE_TEMPL_TITLE = re.compile(r'<!--\s*TITLE\s*-->', re.U | re.I)
 RE_TEMPL_MOD_DATE = re.compile(r'<!--\s*MODIFIED_DATE\s*-->', re.U | re.I)
 
-# building blocks for regexes matching html attributes (menu_id="xxx")
+# building blocks for regexes matching html attributes (id="xxx")
 MENU_ATTR = r'(<.*?id\s*=\s*[\'"]{}[\'"])(.*?>)'
 MENU_SUBSTITUTION = r"\1 class='menu-current' \2"
 
